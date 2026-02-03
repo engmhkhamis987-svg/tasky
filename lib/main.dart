@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/screens/home_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Tasky App',
-      home: WelcomeScreen(),
+      home: HomeScreen(),
     );
   }
 }
