@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/screens/home_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color(0XFF181818),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -116,8 +117,15 @@ class WelcomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    await prefs.setString(
+                      'userName',
+                      _nameController.value.text.trim(),
+                    );
+
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => HomeScreen()),
                     );
