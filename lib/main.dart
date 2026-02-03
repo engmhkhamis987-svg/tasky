@@ -8,7 +8,6 @@ void main() async {
   final pref = await SharedPreferences.getInstance();
   final savedName = pref.getString('userName');
   runApp(MyApp(userName: savedName));
-  //mmmmmmmmmmmmmmm
 }
 
 class MyApp extends StatelessWidget {
