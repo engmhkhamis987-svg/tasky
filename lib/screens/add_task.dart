@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/models/task_model.dart';
 
 class AddTask extends StatefulWidget {
   const AddTask({super.key});
@@ -138,13 +143,28 @@ class _AddTaskState extends State<AddTask> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 20.0),
         child: ElevatedButton.icon(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState!.validate()) {
-              String taskName = taskNameController.text.trim();
-              String taskDesc = taskDescController.text.trim();
-              bool priority = isHighPriority;
+              TaskModel model = TaskModel(
+                taskName: taskNameController.text.trim(),
+                taskDescription: taskDescController.text.trim(),
+                isHighPriority: isHighPriority,
+              );
 
-              Navigator.pop(context);
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+
+              final tasks = await prefs.getString("tasks");
+              List taskList = [];
+              if (tasks != null) {
+                taskList = jsonDecode(tasks);
+              }
+              taskList.add(model.toMap());
+
+              final updatedTasks = jsonEncode(taskList);
+              await prefs.setString("tasks", updatedTasks);
+
+              // Navigator.pop(context);
             }
           },
           label: Text("Add Task"),
