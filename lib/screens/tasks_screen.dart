@@ -1,0 +1,75 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/models/task_model.dart';
+import 'package:tasky/widgets/task_list_widget.dart';
+
+class TasksScreen extends StatefulWidget {
+  const TasksScreen({super.key});
+
+  @override
+  State<TasksScreen> createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<TaskModel> tasks = [];
+  bool isLoading = false;
+
+  Future<void> _loadTasks() async {
+    setState(() {
+      isLoading = true;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final finalTasks = prefs.getString('tasks');
+
+    if (finalTasks != null) {
+      final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
+      setState(() {
+        tasks = tasksAfterDecode
+            .map((task) => TaskModel.fromMap(task))
+            .toList()
+            .where((e) => e.isDone == false)
+            .toList();
+      });
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('To Do Tasks'),
+        iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: TaskListWidget(
+          tasks: tasks,
+          onTap: (bool? value, int? index) async {
+            setState(() {
+              tasks[index!].isDone = value ?? false;
+            });
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            final String encodedData = jsonEncode(
+              tasks.map((task) => task.toMap()).toList(),
+            );
+            await prefs.setString('tasks', encodedData);
+            _loadTasks();
+          },
+          emptyString: 'No tasks available',
+        ),
+      ),
+    );
+  }
+}

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasky/screens/home_screen.dart';
+import 'package:tasky/screens/main_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
 void main() async {
@@ -19,8 +19,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Color(0XFF181818),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0XFF181818),
+          titleTextStyle: TextStyle(
+            color: Color(0XFFFFFCFC),
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          centerTitle: false,
+          iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
+        ),
+      ),
       title: 'Tasky App',
-      home: userName == null ? WelcomeScreen() : HomeScreen(),
+      home: userName == null ? WelcomeScreen() : MainScreen(),
     );
   }
 }

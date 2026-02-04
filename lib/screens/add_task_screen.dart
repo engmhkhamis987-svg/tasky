@@ -1,18 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/models/task_model.dart';
 
-class AddTask extends StatefulWidget {
-  const AddTask({super.key});
+class AddTaskScreen extends StatefulWidget {
+  const AddTaskScreen({super.key});
 
   @override
-  State<AddTask> createState() => _AddTaskState();
+  State<AddTaskScreen> createState() => _AddTaskScreenState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _AddTaskScreenState extends State<AddTaskScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescController = TextEditingController();
@@ -28,18 +27,7 @@ class _AddTaskState extends State<AddTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0XFF181818),
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text('New Task'),
-        backgroundColor: Color(0XFF181818),
-        iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
-        titleTextStyle: TextStyle(
-          color: Color(0xffFFFCFC),
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+      appBar: AppBar(title: Text('New Task')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -104,12 +92,6 @@ class _AddTaskState extends State<AddTask> {
                     hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
                   ),
                   style: TextStyle(color: Color(0XFFFFFCFC)),
-                  validator: (value) {
-                    if (value!.trim() == "" || value.trim().isEmpty) {
-                      return 'Please enter task description';
-                    }
-                    return null;
-                  },
                 ),
                 SizedBox(height: 20),
                 Row(
@@ -164,7 +146,7 @@ class _AddTaskState extends State<AddTask> {
               final updatedTasks = jsonEncode(taskList);
               await prefs.setString("tasks", updatedTasks);
 
-              // Navigator.pop(context);
+              Navigator.of(context).pop(true);
             }
           },
           label: Text("Add Task"),
