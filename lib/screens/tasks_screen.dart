@@ -13,7 +13,7 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<TaskModel> tasks = [];
+  List<TaskModel> todoTasks = [];
   bool isLoading = false;
 
   Future<void> _loadTasks() async {
@@ -26,7 +26,7 @@ class _TasksScreenState extends State<TasksScreen> {
     if (finalTasks != null) {
       final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
       setState(() {
-        tasks = tasksAfterDecode
+        todoTasks = tasksAfterDecode
             .map((task) => TaskModel.fromMap(task))
             .toList()
             .where((e) => e.isDone == false)
@@ -55,17 +55,29 @@ class _TasksScreenState extends State<TasksScreen> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: TaskListWidget(
-          tasks: tasks,
+          tasks: todoTasks,
           onTap: (bool? value, int? index) async {
             setState(() {
-              tasks[index!].isDone = value ?? false;
+              todoTasks[index!].isDone = value ?? false;
             });
             SharedPreferences prefs = await SharedPreferences.getInstance();
-            final String encodedData = jsonEncode(
-              tasks.map((task) => task.toMap()).toList(),
-            );
-            await prefs.setString('tasks', encodedData);
-            _loadTasks();
+            final allData = prefs.getString('tasks');
+            if (allData != null) {
+              final List<TaskModel> allDataList = (jsonDecode(allData) as List)
+                  .map((e) => TaskModel.fromMap(e))
+                  .toList();
+
+              final newIndex = allDataList.indexWhere(
+                (e) => e.id == todoTasks[index!].id,
+              );
+              allDataList[newIndex] = todoTasks[index!];
+
+              final String encodedData = jsonEncode(
+                allDataList.map((task) => task.toMap()).toList(),
+              );
+              await prefs.setString('tasks', encodedData);
+              _loadTasks();
+            }
           },
           emptyString: 'No tasks available',
         ),

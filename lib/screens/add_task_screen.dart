@@ -127,20 +127,21 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         child: ElevatedButton.icon(
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
+              List taskList = [];
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              final tasks = prefs.getString("tasks");
+
+              if (tasks != null) {
+                taskList = jsonDecode(tasks);
+              }
               TaskModel model = TaskModel(
+                id: taskList.length + 1,
                 taskName: taskNameController.text.trim(),
                 taskDescription: taskDescController.text.trim(),
                 isHighPriority: isHighPriority,
               );
 
-              final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
-
-              final tasks = await prefs.getString("tasks");
-              List taskList = [];
-              if (tasks != null) {
-                taskList = jsonDecode(tasks);
-              }
               taskList.add(model.toMap());
 
               final updatedTasks = jsonEncode(taskList);
