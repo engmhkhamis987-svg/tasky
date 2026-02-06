@@ -21,6 +21,37 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Color(0XFF181818),
+
+        switchTheme: SwitchThemeData(
+          trackColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.selected)) {
+              return Color(0XFF15B86C);
+            }
+            return Colors.white;
+          }),
+
+          thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.selected)) {
+              return Color(0XFFFFFCFC);
+            }
+            return Color(0XFF9E9E9E);
+          }),
+
+          trackOutlineColor: WidgetStateProperty.resolveWith<Color>((states) {
+            if (states.contains(WidgetState.selected)) {
+              return Colors.transparent;
+            }
+            return Color(0XFF9E9E9E);
+          }),
+
+          trackOutlineWidth: WidgetStateProperty.resolveWith<double>((states) {
+            if (states.contains(WidgetState.selected)) {
+              return 0;
+            }
+            return 2.0;
+          }),
+        ),
+
         appBarTheme: AppBarTheme(
           backgroundColor: Color(0XFF181818),
           titleTextStyle: TextStyle(
