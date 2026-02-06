@@ -23,7 +23,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[selectedIndex],
+      body: SafeArea(child: screens[selectedIndex]),
 
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Color(0XFF181818),

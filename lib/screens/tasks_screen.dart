@@ -47,41 +47,54 @@ class _TasksScreenState extends State<TasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('To Do Tasks'),
-        iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TaskListWidget(
-          tasks: todoTasks,
-          onTap: (bool? value, int? index) async {
-            setState(() {
-              todoTasks[index!].isDone = value ?? false;
-            });
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            final allData = prefs.getString('tasks');
-            if (allData != null) {
-              final List<TaskModel> allDataList = (jsonDecode(allData) as List)
-                  .map((e) => TaskModel.fromMap(e))
-                  .toList();
-
-              final newIndex = allDataList.indexWhere(
-                (e) => e.id == todoTasks[index!].id,
-              );
-              allDataList[newIndex] = todoTasks[index!];
-
-              final String encodedData = jsonEncode(
-                allDataList.map((task) => task.toMap()).toList(),
-              );
-              await prefs.setString('tasks', encodedData);
-              _loadTasks();
-            }
-          },
-          emptyString: 'No tasks available',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text(
+            'To Do Tasks',
+            style: TextStyle(
+              color: Color(0xffFFFCFC),
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
-      ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TaskListWidget(
+              tasks: todoTasks,
+              onTap: (bool? value, int? index) async {
+                setState(() {
+                  todoTasks[index!].isDone = value ?? false;
+                });
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                final allData = prefs.getString('tasks');
+                if (allData != null) {
+                  final List<TaskModel> allDataList =
+                      (jsonDecode(allData) as List)
+                          .map((e) => TaskModel.fromMap(e))
+                          .toList();
+
+                  final newIndex = allDataList.indexWhere(
+                    (e) => e.id == todoTasks[index!].id,
+                  );
+                  allDataList[newIndex] = todoTasks[index!];
+
+                  final String encodedData = jsonEncode(
+                    allDataList.map((task) => task.toMap()).toList(),
+                  );
+                  await prefs.setString('tasks', encodedData);
+                  _loadTasks();
+                }
+              },
+              emptyString: 'No tasks available',
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

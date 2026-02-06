@@ -47,41 +47,55 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Completed Tasks'),
-        iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: TaskListWidget(
-          tasks: completedTasks,
-          onTap: (bool? value, int? index) async {
-            setState(() {
-              completedTasks[index!].isDone = value ?? true;
-            });
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            final allData = prefs.getString('tasks');
-            if (allData != null) {
-              final List<TaskModel> allDataList = (jsonDecode(allData) as List)
-                  .map((e) => TaskModel.fromMap(e))
-                  .toList();
-
-              final newIndex = allDataList.indexWhere(
-                (e) => e.id == completedTasks[index!].id,
-              );
-              allDataList[newIndex] = completedTasks[index!];
-
-              final String encodedData = jsonEncode(
-                allDataList.map((task) => task.toMap()).toList(),
-              );
-              await prefs.setString('tasks', encodedData);
-              _loadTasks();
-            }
-          },
-          emptyString: 'No tasks Completed',
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: Text(
+            'Completed Tasks',
+            style: TextStyle(
+              color: Color(0xffFFFCFC),
+              fontSize: 20,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
         ),
-      ),
+
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TaskListWidget(
+              tasks: completedTasks,
+              onTap: (bool? value, int? index) async {
+                setState(() {
+                  completedTasks[index!].isDone = value ?? true;
+                });
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                final allData = prefs.getString('tasks');
+                if (allData != null) {
+                  final List<TaskModel> allDataList =
+                      (jsonDecode(allData) as List)
+                          .map((e) => TaskModel.fromMap(e))
+                          .toList();
+
+                  final newIndex = allDataList.indexWhere(
+                    (e) => e.id == completedTasks[index!].id,
+                  );
+                  allDataList[newIndex] = completedTasks[index!];
+
+                  final String encodedData = jsonEncode(
+                    allDataList.map((task) => task.toMap()).toList(),
+                  );
+                  await prefs.setString('tasks', encodedData);
+                  _loadTasks();
+                }
+              },
+              emptyString: 'No tasks Completed',
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
