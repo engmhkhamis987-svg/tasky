@@ -1,0 +1,93 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/models/task_model.dart';
+import 'package:tasky/widgets/task_list_widget.dart';
+
+class HighPriorityScreen extends StatefulWidget {
+  const HighPriorityScreen({super.key});
+
+  @override
+  State<HighPriorityScreen> createState() => _HighPriorityScreenState();
+}
+
+class _HighPriorityScreenState extends State<HighPriorityScreen> {
+  List<TaskModel> highPriorityTasks = [];
+  bool isLoading = false;
+
+  Future<void> _loadTasks() async {
+    setState(() {
+      isLoading = true;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final finalTasks = prefs.getString('tasks');
+
+    if (finalTasks != null) {
+      final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
+      setState(() {
+        highPriorityTasks = tasksAfterDecode
+            .map((task) => TaskModel.fromMap(task))
+            .toList()
+            .where((e) => e.isHighPriority)
+            .toList()
+            .reversed
+            .toList();
+      });
+
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadTasks();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('High Priority Tasks')),
+      body: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TaskListWidget(
+                  tasks: highPriorityTasks,
+                  onTap: (bool? value, int? index) async {
+                    setState(() {
+                      highPriorityTasks[index!].isDone = value ?? false;
+                    });
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    final allData = prefs.getString('tasks');
+                    if (allData != null) {
+                      final List<TaskModel> allDataList =
+                          (jsonDecode(allData) as List)
+                              .map((e) => TaskModel.fromMap(e))
+                              .toList();
+
+                      final newIndex = allDataList.indexWhere(
+                        (e) => e.id == highPriorityTasks[index!].id,
+                      );
+                      allDataList[newIndex] = highPriorityTasks[index!];
+
+                      final String encodedData = jsonEncode(
+                        allDataList.map((task) => task.toMap()).toList(),
+                      );
+                      await prefs.setString('tasks', encodedData);
+                      _loadTasks();
+                    }
+                  },
+                  emptyString: 'No tasks available',
+                ),
+              ),
+      ),
+    );
+  }
+}

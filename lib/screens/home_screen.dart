@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/screens/add_task_screen.dart';
+import 'package:tasky/widgets/achieved%20Tasks_widget.dart';
+import 'package:tasky/widgets/high_priority_tasks_widget.dart';
 import 'package:tasky/widgets/task_list_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,6 +59,18 @@ class _HomeScreenState extends State<HomeScreen> {
     totalTasks = tasks.length;
     doneTasks = tasks.where((e) => e.isDone).length;
     percent = totalTasks == 0 ? 0 : (doneTasks / totalTasks);
+  }
+
+  Future<void> _doneTask(bool? val, int? index) async {
+    setState(() {
+      tasks[index!].isDone = val ?? false;
+      _calculateProgress();
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String encodedData = jsonEncode(
+      tasks.map((task) => task.toMap()).toList(),
+    );
+    await prefs.setString('tasks', encodedData);
   }
 
   @override
@@ -132,69 +146,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(height: 16),
-              Container(
-                padding: EdgeInsets.all(16),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Color(0XFF282828),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Achieved Tasks',
-                          style: TextStyle(
-                            color: Color(0XFFFFFCFC),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          '$doneTasks Out of $totalTasks Done',
-                          style: TextStyle(
-                            color: Color(0XFFC6C6C6),
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Transform.rotate(
-                          angle: -pi / 2,
-                          child: SizedBox(
-                            width: 52,
-                            height: 52,
-                            child: CircularProgressIndicator(
-                              value: percent,
-                              // color: Color(0XFF15B86C),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(0XFF15B86C),
-                              ),
-                              backgroundColor: Color(0XFF6D6D6D),
-                              strokeWidth: 4,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          '${(percent * 100).toInt()} %',
-                          style: TextStyle(
-                            color: Color(0XFFFFFCFC),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+
+              AchievedTasksWidget(
+                doneTasks: doneTasks,
+                totalTasks: totalTasks,
+                percent: percent,
+              ),
+              SizedBox(height: 16),
+              HighPriorityTasksWidget(
+                tasks: tasks,
+                onTap: (val, index) {
+                  _doneTask(val, index);
+                },
+                refresh: _loadTasks,
               ),
 
               SizedBox(height: 20),
@@ -213,17 +177,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       )
                     : TaskListWidget(
                         tasks: tasks,
-                        onTap: (val, index) async {
-                          setState(() {
-                            tasks[index!].isDone = val ?? false;
-                            _calculateProgress();
-                          });
-                          SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          final String encodedData = jsonEncode(
-                            tasks.map((task) => task.toMap()).toList(),
-                          );
-                          await prefs.setString('tasks', encodedData);
+                        onTap: (bool? val, int? index) {
+                          _doneTask(val, index);
                         },
                         emptyString: 'No Data',
                       ),
