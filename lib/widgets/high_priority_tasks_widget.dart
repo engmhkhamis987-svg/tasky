@@ -7,7 +7,8 @@ class HighPriorityTasksWidget extends StatelessWidget {
   const HighPriorityTasksWidget({
     super.key,
     required this.tasks,
-    required this.onTap, required this.refresh,
+    required this.onTap,
+    required this.refresh,
   });
   final Function(bool?, int?) onTap;
   final Function() refresh;
@@ -82,24 +83,24 @@ class HighPriorityTasksWidget extends StatelessWidget {
               ],
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 16, right: 16),
-            padding: const EdgeInsets.all(14),
-            height: 56,
-            width: 48,
+          GestureDetector(
+            onTap: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => HighPriorityScreen()),
+              );
+              refresh();
+            },
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 16, right: 16),
+              padding: const EdgeInsets.all(14),
+              height: 56,
+              width: 48,
 
-            decoration: BoxDecoration(
-              color: Color(0XFF282828),
-              border: Border.all(color: Color(0XFF3B3B3B)),
-              shape: BoxShape.circle,
-            ),
-            child: GestureDetector(
-              onTap: () async {
-                await Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => HighPriorityScreen()),
-                 );
-                 refresh();
-              },
+              decoration: BoxDecoration(
+                color: Color(0XFF282828),
+                border: Border.all(color: Color(0XFF3B3B3B)),
+                shape: BoxShape.circle,
+              ),
               child: SvgPicture.asset(
                 'assets/images/arrow_up_icon.svg',
                 width: 24,

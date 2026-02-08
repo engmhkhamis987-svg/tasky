@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/screens/user_details_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -114,6 +115,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 ListTile(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => UserDetailsScreen(),
+                    ),
+                  ),
+
                   contentPadding: EdgeInsets.zero,
                   leading: SvgPicture.asset('assets/images/profile_icon.svg'),
                   title: Text(
