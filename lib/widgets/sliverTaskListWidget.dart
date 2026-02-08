@@ -15,10 +15,12 @@ class Slivertasklistwidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return tasks.isEmpty
-        ? Center(
-            child: Text(
-              emptyString,
-              style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+        ? SliverToBoxAdapter(
+            child: Center(
+              child: Text(
+                emptyString,
+                style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+              ),
             ),
           )
         : SliverPadding(

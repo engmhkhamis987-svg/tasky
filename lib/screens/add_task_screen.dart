@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/models/task_model.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -36,63 +37,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Task Name',
-                  style: TextStyle(
-                    color: Color(0xffFFFCFC),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8),
-                TextFormField(
+                CustomTextFormField(
                   controller: taskNameController,
-                  cursorColor: Colors.white,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(0XFF282828),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText: 'Finish UI design for login screen',
-                    hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
-                  ),
-                  style: TextStyle(color: Color(0XFFFFFCFC)),
+                  title: 'Task Name',
+                  hintText: 'Design login screen',
                   validator: (value) {
-                    if (value!.trim() == "" || value.trim().isEmpty) {
+                    if (value == null || value.trim().isEmpty) {
                       return 'Please enter task name';
                     }
                     return null;
                   },
                 ),
+
                 SizedBox(height: 20),
-                Text(
-                  'Task Description',
-                  style: TextStyle(
-                    color: Color(0xffFFFCFC),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8),
-                TextFormField(
-                  maxLines: 5,
+
+                CustomTextFormField(
                   controller: taskDescController,
-                  cursorColor: Colors.white,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Color(0XFF282828),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
-                    hintText:
-                        'Finish onboarding UI and hand off to devs by Thursday.',
-                    hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
-                  ),
-                  style: TextStyle(color: Color(0XFFFFFCFC)),
+                  title: 'Task Description',
+                  hintText: 'Finish UI design for login screen',
+                  maxLines: 5,
                 ),
+
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,7 +88,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
+        padding: const EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
         child: ElevatedButton.icon(
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
@@ -153,8 +118,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           label: Text("Add Task"),
           icon: Icon(Icons.add),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0XFF15B86C),
-            foregroundColor: Color(0xffFFFCFC),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),

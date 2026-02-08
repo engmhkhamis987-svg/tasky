@@ -6,10 +6,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.title,
     this.maxLines,
+    this.validator,
+    required this.hintText,
   });
   final TextEditingController controller;
   final String title;
+  final String hintText;
   final int? maxLines;
+  final Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,16 +39,11 @@ class CustomTextFormField extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide.none,
             ),
-            hintText: 'Finish UI design for login screen',
+            hintText: hintText,
             hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
           ),
           style: TextStyle(color: Color(0XFFFFFCFC)),
-          validator: (value) {
-            if (value!.trim() == "" || value.trim().isEmpty) {
-              return 'Please enter task name';
-            }
-            return null;
-          },
+          validator: validator != null ? (value) => validator!(value!) : null,
         ),
       ],
     );

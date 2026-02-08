@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasky/screens/user_details_screen.dart';
+import 'package:tasky/screens/welcome_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -12,7 +13,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isDarkMode = false;
-  late final String userName;
+  late String userName;
+  late String motivationQuote;
   bool isLoading = false;
 
   Future<void> _loadUserName() async {
@@ -22,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       userName = prefs.getString('userName') ?? '';
+      motivationQuote = prefs.getString('motivation_quote') ?? '';
       isLoading = false;
     });
   }
@@ -95,7 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: 4),
                       Text(
-                        'One task at a time. One step closer.',
+                        motivationQuote,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w400,
@@ -115,12 +118,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 ListTile(
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => UserDetailsScreen(),
-                    ),
-                  ),
+                  onTap: () async {
+                    final result = await Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => UserDetailsScreen(
+                          userName: userName,
+                          motivationQuote: motivationQuote,
+                        ),
+                      ),
+                    );
 
+                    if (result != null && result) {
+                      _loadUserName();
+                    }
+                  },
                   contentPadding: EdgeInsets.zero,
                   leading: SvgPicture.asset('assets/images/profile_icon.svg'),
                   title: Text(
@@ -152,6 +163,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Divider(color: Color(0XFFCAC4D0)),
                 ListTile(
+                  onTap: () async {
+                    final pref = await SharedPreferences.getInstance();
+                    pref.remove('userName');
+                    pref.remove('motivation_quote');
+                    pref.remove('tasks');
+                    Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                      (Route<dynamic> route) => false,
+                    );
+                  },
                   contentPadding: EdgeInsets.zero,
                   leading: SvgPicture.asset('assets/images/log_out_icon.svg'),
                   title: Text(

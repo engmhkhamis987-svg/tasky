@@ -62,6 +62,24 @@ class MyApp extends StatelessWidget {
           centerTitle: false,
           iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
         ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0XFF15B86C),
+            foregroundColor: Color(0XFFFFFCFC),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+          ),
+        ),
+        // elevatedButtonTheme: ElevatedButtonThemeData(
+        //   style: ButtonStyle(
+        //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),
+        //     foregroundColor: WidgetStateProperty.all(Color(0XFFFFFCFC)),
+        //     shape: WidgetStateProperty.all(
+        //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        //     ),
+        //   ),
+        // ),
       ),
       title: 'Tasky App',
       home: userName == null ? WelcomeScreen() : MainScreen(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/screens/home_screen.dart';
 import 'package:tasky/screens/main_screen.dart';
 
@@ -73,41 +74,17 @@ class WelcomeScreen extends StatelessWidget {
                 height: 200,
               ),
               SizedBox(height: 24),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    "Full Name",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0XFFFFFCFC),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(height: 8),
+
               Form(
                 key: _formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: TextFormField(
+                  child: CustomTextFormField(
                     controller: _nameController,
-                    cursorColor: Colors.white,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Color(0XFF282828),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(16),
-                        borderSide: BorderSide.none,
-                      ),
-                      hintText: 'Enter your full name',
-                      hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
-                    ),
-                    style: TextStyle(color: Color(0XFFFFFCFC)),
+                    title: 'Full Name',
+                    hintText: 'Enter your full name',
                     validator: (value) {
-                      if (value!.trim() == "" || value.trim().isEmpty) {
+                      if (value == null || value.trim().isEmpty) {
                         return 'Please enter your full name';
                       }
                       return null;
@@ -115,6 +92,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
               SizedBox(height: 24),
               ElevatedButton(
                 onPressed: () async {
@@ -129,13 +107,15 @@ class WelcomeScreen extends StatelessWidget {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (context) => MainScreen()),
                     );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Enter Your Full Name")),
+                    );
                   }
                 },
 
                 style: ElevatedButton.styleFrom(
                   fixedSize: Size(MediaQuery.of(context).size.width - 32, 40),
-                  backgroundColor: Color(0XFF15B86C),
-                  foregroundColor: Color(0xffFFFCFC),
                 ),
                 child: Text('Let’s Get Started'),
               ),
