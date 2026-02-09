@@ -72,6 +72,7 @@ class WelcomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: CustomTextFormField(
                     controller: _nameController,
+                    maxLines: 1,
                     title: 'Full Name',
                     hintText: 'Enter your full name',
                     validator: (value) {
@@ -108,6 +109,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 child: Text('Let’s Get Started'),
               ),
+              SizedBox(height: 24),
             ],
           ),
         ),

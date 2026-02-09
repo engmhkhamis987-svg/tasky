@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
+  colorScheme: ColorScheme.dark(primaryContainer: Color(0XFF282828)),
   scaffoldBackgroundColor: Color(0XFF181818),
 
   switchTheme: SwitchThemeData(
@@ -53,29 +54,58 @@ ThemeData darkTheme = ThemeData(
   ),
 
   textTheme: TextTheme(
-    displayMedium: TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.w400,
-      color: Color(0XFFFFFFFF),
-    ),
     displaySmall: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w400,
       color: Color(0XFFFFFCFC),
     ),
+    displayMedium: TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFFFFFFF),
+    ),
+    displayLarge: TextStyle(
+      fontSize: 32,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFFFFCFC),
+    ),
+
+    titleSmall: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFC6C6C6),
+    ),
+    titleMedium: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFFFFCFC),
+    ),
+    labelMedium: TextStyle(color: Colors.white, fontSize: 16),
   ),
 
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Color(0XFF282828),
+    hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
       borderSide: BorderSide.none,
     ),
 
-    hintStyle: TextStyle(color: Color(0XFF6D6D6D)),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.red, width: 0.5),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.red, width: 0.5),
+    ),
   ),
 
+  checkboxTheme: CheckboxThemeData(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    side: BorderSide(color: Color(0XFF6E6E6E), width: 2),
+  ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),

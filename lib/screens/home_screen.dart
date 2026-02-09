@@ -99,19 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(
                             'Good Evening ,$userName',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Color(0XFFFFFCFC),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
                             'One task at a time.One step closer.',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0XFFC6C6C6),
-                              fontWeight: FontWeight.w400,
-                            ),
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                         ],
                       ),
@@ -125,21 +117,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 16),
                   Text(
                     'Yuhuu ,Your work Is',
-                    style: TextStyle(
-                      fontSize: 32,
-                      color: Color(0XFFFFFCFC),
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context).textTheme.displayLarge,
                   ),
                   Row(
                     children: [
                       Text(
                         'almost done ! ',
-                        style: TextStyle(
-                          fontSize: 32,
-                          color: Color(0XFFFFFCFC),
-                          fontWeight: FontWeight.w700,
-                        ),
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       SvgPicture.asset('assets/images/waving_hand.svg'),
                     ],

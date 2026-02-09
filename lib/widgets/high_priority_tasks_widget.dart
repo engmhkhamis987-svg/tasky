@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/widgets/custom_checkbox.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/screens/high_priority_screen.dart';
 
@@ -20,7 +21,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(0XFF282828),
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -49,7 +50,7 @@ class HighPriorityTasksWidget extends StatelessWidget {
                     .map((e) {
                       return Row(
                         children: [
-                          Checkbox(
+                          CustomCheckbox(
                             value: e.isDone,
                             onChanged: (val) {
                               final index = tasks.indexWhere(
@@ -60,11 +61,8 @@ class HighPriorityTasksWidget extends StatelessWidget {
                                 index,
                               ); // Call the callback with the new value and index
                             },
-                            activeColor: Color(0XFF15B86C),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
                           ),
+
                           SizedBox(width: 8),
                           Expanded(
                             child: Text(

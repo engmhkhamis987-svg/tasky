@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: lightTheme,
+      theme: darkTheme,
       title: 'Tasky App',
-      home: userName != null ? WelcomeScreen() : MainScreen(),
+      home: userName == null ? WelcomeScreen() : MainScreen(),
     );
   }
 }

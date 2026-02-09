@@ -19,7 +19,7 @@ class AchievedTasksWidget extends StatelessWidget {
       padding: EdgeInsets.all(16),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Color(0XFF282828),
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -30,20 +30,12 @@ class AchievedTasksWidget extends StatelessWidget {
             children: [
               Text(
                 'Achieved Tasks',
-                style: TextStyle(
-                  color: Color(0XFFFFFCFC),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 4),
               Text(
                 '$doneTasks Out of $totalTasks Done',
-                style: TextStyle(
-                  color: Color(0XFFC6C6C6),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
+                style: Theme.of(context).textTheme.titleSmall,
               ),
             ],
           ),
@@ -53,8 +45,8 @@ class AchievedTasksWidget extends StatelessWidget {
               Transform.rotate(
                 angle: -pi / 2,
                 child: SizedBox(
-                  width: 52,
-                  height: 52,
+                  width: 48,
+                  height: 48,
                   child: CircularProgressIndicator(
                     value: percent,
                     // color: Color(0XFF15B86C),
@@ -68,11 +60,9 @@ class AchievedTasksWidget extends StatelessWidget {
               ),
               Text(
                 '${(percent * 100).toInt()} %',
-                style: TextStyle(
-                  color: Color(0XFFFFFCFC),
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium!.copyWith(fontSize: 14),
               ),
             ],
           ),

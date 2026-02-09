@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
+  colorScheme: ColorScheme.light(primaryContainer: Color(0XFFFFFFFF)),
 
   scaffoldBackgroundColor: Color(0XFFF6F7F9),
 
@@ -54,27 +55,67 @@ ThemeData lightTheme = ThemeData(
   ),
 
   textTheme: TextTheme(
-    displayMedium: TextStyle(
-      fontSize: 28,
-      fontWeight: FontWeight.w400,
-      color: Color(0XFF161F1B),
-    ),
     displaySmall: TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w400,
       color: Color(0XFF161F1B),
     ),
+    displayMedium: TextStyle(
+      fontSize: 28,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFF161F1B),
+    ),
+    displayLarge: TextStyle(
+      fontSize: 32,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFF161F1B),
+    ),
+
+    titleSmall: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFC6C6C6),
+    ),
+
+    titleMedium: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFF3A4640),
+    ),
+    labelMedium: TextStyle(color: Colors.black, fontSize: 16),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: Color(0XFFFFFFFF),
+    hintStyle: TextStyle(color: Color(0XFF9E9E9E)),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(16),
-      borderSide: BorderSide.none,
+      borderSide: BorderSide(color: Color(0XFFD1DAD6), width: 0.5),
     ),
 
-    hintStyle: TextStyle(color: Color(0XFF9E9E9E)),
+    // focusColor: Colors.black,
+    enabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Color(0XFFD1DAD6), width: 0.5),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Color(0XFFD1DAD6), width: 0.5),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.red, width: 0.5),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(16),
+      borderSide: BorderSide(color: Colors.red, width: 0.5),
+    ),
   ),
+  checkboxTheme: CheckboxThemeData(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    side: BorderSide(color: Color(0XFFD1DAD6), width: 2),
+  ),
+
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),
