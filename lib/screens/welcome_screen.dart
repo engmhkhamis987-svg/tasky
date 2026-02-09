@@ -30,11 +30,7 @@ class WelcomeScreen extends StatelessWidget {
                   SizedBox(width: 16),
                   Text(
                     'Tasky',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xffFFFFFF),
-                    ),
+                    style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],
               ),
@@ -44,11 +40,7 @@ class WelcomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Welcome To Tasky',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0XFFFFFCFC),
-                    ),
+                    style: Theme.of(context).textTheme.displaySmall,
                   ),
                   SizedBox(width: 8),
                   SvgPicture.asset(
@@ -61,11 +53,9 @@ class WelcomeScreen extends StatelessWidget {
               SizedBox(height: 8),
               Text(
                 'Your productivity journey starts here.',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0XFFFFFCFC),
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.displaySmall!.copyWith(fontSize: 16),
               ),
               SizedBox(height: 24),
 

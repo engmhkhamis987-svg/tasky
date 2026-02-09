@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/theme/dark_theme.dart';
+import 'package:tasky/core/theme/light_theme.dart';
 import 'package:tasky/screens/main_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
@@ -21,70 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Color(0XFF181818),
-
-        switchTheme: SwitchThemeData(
-          trackColor: WidgetStateProperty.resolveWith<Color>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return Color(0XFF15B86C);
-            }
-            return Colors.white;
-          }),
-
-          thumbColor: WidgetStateProperty.resolveWith<Color>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return Color(0XFFFFFCFC);
-            }
-            return Color(0XFF9E9E9E);
-          }),
-
-          trackOutlineColor: WidgetStateProperty.resolveWith<Color>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return Colors.transparent;
-            }
-            return Color(0XFF9E9E9E);
-          }),
-
-          trackOutlineWidth: WidgetStateProperty.resolveWith<double>((states) {
-            if (states.contains(WidgetState.selected)) {
-              return 0;
-            }
-            return 2.0;
-          }),
-        ),
-
-        appBarTheme: AppBarTheme(
-          backgroundColor: Color(0XFF181818),
-          titleTextStyle: TextStyle(
-            color: Color(0XFFFFFCFC),
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-          centerTitle: false,
-          iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0XFF15B86C),
-            foregroundColor: Color(0XFFFFFCFC),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-          ),
-        ),
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //   style: ButtonStyle(
-        //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),
-        //     foregroundColor: WidgetStateProperty.all(Color(0XFFFFFCFC)),
-        //     shape: WidgetStateProperty.all(
-        //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        //     ),
-        //   ),
-        // ),
-      ),
+      theme: lightTheme,
       title: 'Tasky App',
-      home: userName == null ? WelcomeScreen() : MainScreen(),
+      home: userName != null ? WelcomeScreen() : MainScreen(),
     );
   }
 }
