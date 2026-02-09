@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/models/task_model.dart';
 
@@ -93,9 +93,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               List taskList = [];
-              final SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
-              final tasks = prefs.getString("tasks");
+
+              final tasks = PreferencesManager().getString("tasks");
 
               if (tasks != null) {
                 taskList = jsonDecode(tasks);
@@ -110,7 +109,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               taskList.add(model.toMap());
 
               final updatedTasks = jsonEncode(taskList);
-              await prefs.setString("tasks", updatedTasks);
+
+              await PreferencesManager().setString("tasks", updatedTasks);
 
               Navigator.of(context).pop(true);
             }

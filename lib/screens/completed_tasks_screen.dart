@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/widgets/task_list_widget.dart';
 
@@ -20,8 +20,8 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
     setState(() {
       isLoading = true;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final finalTasks = prefs.getString('tasks');
+
+    final finalTasks = PreferencesManager().getString('tasks');
 
     if (finalTasks != null) {
       final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
@@ -71,8 +71,8 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
                 setState(() {
                   completedTasks[index!].isDone = value ?? true;
                 });
-                SharedPreferences prefs = await SharedPreferences.getInstance();
-                final allData = prefs.getString('tasks');
+                final allData = PreferencesManager().getString('tasks');
+
                 if (allData != null) {
                   final List<TaskModel> allDataList =
                       (jsonDecode(allData) as List)
@@ -87,7 +87,9 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
                   final String encodedData = jsonEncode(
                     allDataList.map((task) => task.toMap()).toList(),
                   );
-                  await prefs.setString('tasks', encodedData);
+
+                  await PreferencesManager().setString('tasks', encodedData);
+
                   _loadTasks();
                 }
               },

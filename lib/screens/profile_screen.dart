@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/screens/user_details_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
@@ -21,10 +21,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       isLoading = true;
     });
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     setState(() {
-      userName = prefs.getString('userName') ?? '';
-      motivationQuote = prefs.getString('motivation_quote') ?? '';
+      userName = PreferencesManager().getString('userName') ?? '';
+      motivationQuote =
+          PreferencesManager().getString('motivation_quote') ?? '';
       isLoading = false;
     });
   }
@@ -164,10 +165,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(color: Color(0XFFCAC4D0)),
                 ListTile(
                   onTap: () async {
-                    final pref = await SharedPreferences.getInstance();
-                    pref.remove('userName');
-                    pref.remove('motivation_quote');
-                    pref.remove('tasks');
+                    PreferencesManager().remove('userName');
+                    PreferencesManager().remove('motivation_quote');
+                    PreferencesManager().remove('tasks');
+
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => WelcomeScreen()),
                       (Route<dynamic> route) => false,
