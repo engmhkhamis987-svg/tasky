@@ -88,10 +88,16 @@ ThemeData lightTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: Color(0XFFA0A0A0),
       decoration: TextDecoration.lineThrough,
-      decorationColor: Color(0XFFA0A0A0),
+      decorationColor: Color(0XFF49454F),
       overflow: TextOverflow.ellipsis,
     ),
+    labelSmall: TextStyle(
+      color: Color(0XFF161F1B),
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    ),
     labelMedium: TextStyle(color: Colors.black, fontSize: 16),
+    labelLarge: TextStyle(color: Colors.black, fontSize: 24),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
@@ -124,6 +130,7 @@ ThemeData lightTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     side: BorderSide(color: Color(0XFFD1DAD6), width: 2),
   ),
+  iconTheme: IconThemeData(color: Color(0XFF3A4640)),
 
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(

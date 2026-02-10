@@ -147,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   SizedBox(height: 20),
                   Text(
                     'My Tasks',
-                    style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 20),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                   SizedBox(height: 16),
                 ],

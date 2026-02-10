@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_checkbox.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/screens/high_priority_screen.dart';
@@ -86,21 +87,33 @@ class HighPriorityTasksWidget extends StatelessWidget {
               );
               refresh();
             },
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 16, right: 16),
-              padding: const EdgeInsets.all(14),
-              height: 56,
-              width: 48,
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                height: 56,
+                width: 48,
 
-              decoration: BoxDecoration(
-                color: Color(0XFF282828),
-                border: Border.all(color: Color(0XFF3B3B3B)),
-                shape: BoxShape.circle,
-              ),
-              child: SvgPicture.asset(
-                'assets/images/arrow_up_icon.svg',
-                width: 24,
-                height: 24,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primaryContainer,
+                  border: Border.all(
+                    color: ThemeController.isDark()
+                        ? Color(0XFF6E6E6E)
+                        : Color(0XFFD1DAD6),
+                  ),
+                  shape: BoxShape.circle,
+                ),
+                child: SvgPicture.asset(
+                  'assets/images/arrow_up_icon.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    ThemeController.isDark()
+                        ? Color(0XFFC6C6C6)
+                        : Color(0XFF3A4640),
+                    BlendMode.srcIn,
+                  ),
+                ),
               ),
             ),
           ),

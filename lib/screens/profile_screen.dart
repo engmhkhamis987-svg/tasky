@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/theme/theme_controller.dart';
+import 'package:tasky/main.dart';
 import 'package:tasky/screens/user_details_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
@@ -12,20 +14,21 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  bool isDarkMode = false;
+  bool isDarkMode = true;
   late String userName;
   late String motivationQuote;
   bool isLoading = false;
 
   Future<void> _loadUserName() async {
-    setState(() {
-      isLoading = true;
-    });
+    // setState(() {
+    //   isLoading = true;
+    // });
 
     setState(() {
       userName = PreferencesManager().getString('userName') ?? '';
       motivationQuote =
           PreferencesManager().getString('motivation_quote') ?? '';
+      isDarkMode = PreferencesManager().getBool("theme") ?? true;
       isLoading = false;
     });
   }
@@ -151,14 +154,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'Dark Mode',
                     style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
                   ),
-                  trailing: Switch(
-                    // activeThumbColor: Color(0XFFFFFCFC),
-                    // activeTrackColor: Color(0XFF15B86C),
-                    value: isDarkMode,
-                    onChanged: (value) {
-                      setState(() {
-                        isDarkMode = value;
-                      });
+                  trailing: ValueListenableBuilder(
+                    valueListenable: ThemeController.themeNotifier,
+                    builder: (context, value, child) {
+                      return Switch(
+                        value: value == ThemeMode.dark,
+                        onChanged: (value) async {
+                          ThemeController.toggleTheme();
+                        },
+                      );
                     },
                   ),
                 ),
@@ -168,6 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     PreferencesManager().remove('userName');
                     PreferencesManager().remove('motivation_quote');
                     PreferencesManager().remove('tasks');
+                    PreferencesManager().remove('theme');
 
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => WelcomeScreen()),

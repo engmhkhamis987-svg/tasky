@@ -49,6 +49,7 @@ ThemeData darkTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: Color(0XFF15B86C),
       foregroundColor: Color(0XFFFFFCFC),
+      textStyle: TextStyle(fontSize: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   ),
@@ -87,10 +88,16 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: Color(0XFFA0A0A0),
       decoration: TextDecoration.lineThrough,
-      decorationColor: Color(0XFFA0A0A0),
+      decorationColor: Color(0XFF49454F),
       overflow: TextOverflow.ellipsis,
     ),
+    labelSmall: TextStyle(
+      color: Color(0XFFFFFCFC),
+      fontSize: 20,
+      fontWeight: FontWeight.w400,
+    ),
     labelMedium: TextStyle(color: Colors.white, fontSize: 16),
+    labelLarge: TextStyle(color: Colors.white, fontSize: 24),
   ),
 
   inputDecorationTheme: InputDecorationTheme(
@@ -116,6 +123,7 @@ ThemeData darkTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     side: BorderSide(color: Color(0XFF6E6E6E), width: 2),
   ),
+  iconTheme: IconThemeData(color: Color(0XFFC6C6C6)),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),

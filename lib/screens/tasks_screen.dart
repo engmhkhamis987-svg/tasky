@@ -54,11 +54,7 @@ class _TasksScreenState extends State<TasksScreen> {
           padding: const EdgeInsets.all(18.0),
           child: Text(
             'To Do Tasks',
-            style: TextStyle(
-              color: Color(0xffFFFCFC),
-              fontSize: 20,
-              fontWeight: FontWeight.w400,
-            ),
+            style: Theme.of(context).textTheme.labelSmall,
           ),
         ),
         Expanded(
