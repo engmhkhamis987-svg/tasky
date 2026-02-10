@@ -67,11 +67,9 @@ class HighPriorityTasksWidget extends StatelessWidget {
                           Expanded(
                             child: Text(
                               e.taskName,
-                              style: TextStyle(
-                                color: Color(0XFFC6C6C6),
-                                fontSize: 14,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                              style: e.isDone
+                                  ? Theme.of(context).textTheme.titleLarge
+                                  : Theme.of(context).textTheme.titleMedium,
                               maxLines: 1,
                             ),
                           ),

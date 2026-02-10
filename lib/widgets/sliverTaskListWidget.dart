@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/widgets/custom_checkbox.dart';
 import 'package:tasky/models/task_model.dart';
 
 class Slivertasklistwidget extends StatelessWidget {
@@ -41,15 +42,11 @@ class Slivertasklistwidget extends StatelessWidget {
                   child: Row(
                     children: [
                       SizedBox(height: 8),
-                      Checkbox(
+                      CustomCheckbox(
                         value: tasks[index].isDone,
                         onChanged: (val) {
                           onTap(val, index);
                         },
-                        activeColor: Color(0XFF15B86C),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(4),
-                        ),
                       ),
                       SizedBox(height: 16),
 

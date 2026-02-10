@@ -80,6 +80,16 @@ ThemeData darkTheme = ThemeData(
       fontWeight: FontWeight.w400,
       color: Color(0XFFFFFCFC),
     ),
+
+    //for done tasks
+    titleLarge: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFA0A0A0),
+      decoration: TextDecoration.lineThrough,
+      decorationColor: Color(0XFFA0A0A0),
+      overflow: TextOverflow.ellipsis,
+    ),
     labelMedium: TextStyle(color: Colors.white, fontSize: 16),
   ),
 

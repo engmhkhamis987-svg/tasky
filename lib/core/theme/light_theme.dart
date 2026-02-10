@@ -74,13 +74,22 @@ ThemeData lightTheme = ThemeData(
     titleSmall: TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      color: Color(0XFFC6C6C6),
+      color: Color(0XFF3A4640),
     ),
 
     titleMedium: TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.w400,
-      color: Color(0XFF3A4640),
+      color: Color(0XFF161F1B),
+    ),
+    //for done tasks
+    titleLarge: TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+      color: Color(0XFFA0A0A0),
+      decoration: TextDecoration.lineThrough,
+      decorationColor: Color(0XFFA0A0A0),
+      overflow: TextOverflow.ellipsis,
     ),
     labelMedium: TextStyle(color: Colors.black, fontSize: 16),
   ),
