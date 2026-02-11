@@ -57,6 +57,9 @@ ThemeData darkTheme = ThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(foregroundColor: Color(0XFFFFFCFC)),
+  ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0XFF15B86C),
     foregroundColor: Color(0xffFFFCFC),

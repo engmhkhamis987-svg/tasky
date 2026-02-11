@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tasky/core/widgets/custom_checkbox.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/widgets/task_item_widget.dart';
 
@@ -9,9 +8,11 @@ class Slivertasklistwidget extends StatelessWidget {
     required this.tasks,
     required this.onTap,
     required this.emptyString,
+    required this.onDelete,
   });
   final List<TaskModel> tasks;
   final Function(bool?, int?) onTap;
+  final Function(int) onDelete;
   final String emptyString;
 
   @override
@@ -34,6 +35,7 @@ class Slivertasklistwidget extends StatelessWidget {
                 return TaskItemWidget(
                   model: tasks[index],
                   onChanged: (bool? value) => onTap(value, index),
+                  onDelete: (int id) => onDelete(id),
                 );
               },
             ),

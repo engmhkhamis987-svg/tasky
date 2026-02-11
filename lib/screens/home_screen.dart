@@ -63,12 +63,22 @@ class _HomeScreenState extends State<HomeScreen> {
       tasks[index!].isDone = val ?? false;
       _calculateProgress();
     });
-
     final String encodedData = jsonEncode(
       tasks.map((task) => task.toMap()).toList(),
     );
-
     await PreferencesManager().setString('tasks', encodedData);
+  }
+
+  Future<void> _deleteTask(int id) async {
+    setState(() {
+      tasks.removeWhere((task) => task.id == id);
+
+      _calculateProgress();
+    });
+    final String updatedTasks = jsonEncode(
+      tasks.map((task) => task.toMap()).toList(),
+    );
+    await PreferencesManager().setString('tasks', updatedTasks);
   }
 
   @override
@@ -173,6 +183,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: (bool? val, int? index) {
                       _doneTask(val, index);
                     },
+                    onDelete: (int id) {
+                      _deleteTask(id);
+                    },
+
                     emptyString: 'No Data',
                   ),
           ],

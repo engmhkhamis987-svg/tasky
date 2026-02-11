@@ -39,6 +39,26 @@ class _TasksScreenState extends State<TasksScreen> {
     }
   }
 
+  Future<void> _deleteTask(int id) async {
+    List<TaskModel> tasks = [];
+    final finalTasks = PreferencesManager().getString('tasks');
+    if (finalTasks != null) {
+      final List<dynamic> allTasks = jsonDecode(finalTasks);
+
+      tasks = allTasks.map((task) => TaskModel.fromMap(task)).toList();
+
+      tasks.removeWhere((task) => task.id == id);
+      setState(() {
+        todoTasks.removeWhere((e) => e.id == id);
+      });
+
+      final String updatedTasks = jsonEncode(
+        tasks.map((task) => task.toMap()).toList(),
+      );
+      await PreferencesManager().setString('tasks', updatedTasks);
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -90,6 +110,9 @@ class _TasksScreenState extends State<TasksScreen> {
                         );
                         _loadTasks();
                       }
+                    },
+                    onDelete: (id) {
+                      _deleteTask(id);
                     },
                     emptyString: 'No tasks available',
                   ),

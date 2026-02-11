@@ -57,6 +57,9 @@ ThemeData lightTheme = ThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   ),
+  textButtonTheme: TextButtonThemeData(
+    style: TextButton.styleFrom(foregroundColor: Colors.black),
+  ),
 
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: Color(0XFF15B86C),
@@ -180,7 +183,7 @@ ThemeData lightTheme = ThemeData(
     menuPadding: EdgeInsets.all(4),
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(16),
-      side: BorderSide(color: Color(0XFF15B86C), width: 1),
+      // side: BorderSide(color: Color(0XFF15B86C), width: 1),
     ),
     elevation: 2,
     shadowColor: Color(0XFF15B86C),
