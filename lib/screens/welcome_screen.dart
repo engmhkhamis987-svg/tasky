@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 
 import 'package:tasky/screens/main_screen.dart';
@@ -22,11 +23,12 @@ class WelcomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/images/logo.svg',
+                  CustomSvgPicture.withoutColorFilter(
+                    path: 'assets/images/logo.svg',
                     width: 42,
                     height: 42,
                   ),
+
                   SizedBox(width: 16),
                   Text(
                     'Tasky',
@@ -43,8 +45,8 @@ class WelcomeScreen extends StatelessWidget {
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                   SizedBox(width: 8),
-                  SvgPicture.asset(
-                    'assets/images/waving_hand.svg',
+                  CustomSvgPicture.withoutColorFilter(
+                    path: 'assets/images/waving_hand.svg',
                     width: 42,
                     height: 42,
                   ),
@@ -59,8 +61,8 @@ class WelcomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 24),
 
-              SvgPicture.asset(
-                'assets/images/welcome.svg',
+              CustomSvgPicture.withoutColorFilter(
+                path: 'assets/images/welcome.svg',
                 width: 215,
                 height: 200,
               ),

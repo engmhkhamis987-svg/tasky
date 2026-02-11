@@ -42,12 +42,12 @@ ThemeData lightTheme = ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Color(0XFFF6F7F9),
     titleTextStyle: TextStyle(
-      color: Color(0XFFFFFCFC),
+      color: Color(0XFF161F1B),
       fontSize: 20,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
     ),
     centerTitle: false,
-    iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
+    iconTheme: IconThemeData(color: Color(0xFF161F1B)),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
@@ -158,6 +158,32 @@ ThemeData lightTheme = ThemeData(
     cursorColor: Colors.black,
     selectionColor: Colors.grey[300]!,
     selectionHandleColor: Colors.black,
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: Color(0XFFF6F7F9),
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Color(0XFF14A662),
+    unselectedItemColor: Color(0XFF3A4640),
+  ),
+  splashFactory: NoSplash.splashFactory,
+  popupMenuTheme: PopupMenuThemeData(
+    color: Color(0XFFF6F7F9),
+
+    // textStyle: TextStyle(
+    //   color: Colors.black,
+    //   fontSize: 16,
+    //   fontWeight: FontWeight.w400,
+    // ),
+    labelTextStyle: WidgetStatePropertyAll(
+      TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.w400),
+    ),
+    menuPadding: EdgeInsets.all(4),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+      side: BorderSide(color: Color(0XFF15B86C), width: 1),
+    ),
+    elevation: 2,
+    shadowColor: Color(0XFF15B86C),
   ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(

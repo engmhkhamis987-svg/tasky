@@ -60,14 +60,22 @@ class TaskItemWidget extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(
-            onPressed: () {},
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              print(value);
+            },
             icon: Icon(
               Icons.more_vert,
               color: ThemeController.isDark()
                   ? (model.isDone ? Color(0XFFA0A0A0) : Color(0XFFC6C6C6))
                   : (model.isDone ? Color(0XFF3A4640) : Color(0XFF6A6A6A)),
             ),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(value: 'Edit', child: Text("Edit")),
+                PopupMenuItem(value: 'Delete', child: Text("Delete")),
+              ];
+            },
           ),
         ],
       ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/models/task_model.dart';
 import 'package:tasky/screens/add_task_screen.dart';
 import 'package:tasky/widgets/achieved%20Tasks_widget.dart';
@@ -91,7 +92,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       CircleAvatar(
-                        child: SvgPicture.asset('assets/images/logo.svg'),
+                        child: CustomSvgPicture.withoutColorFilter(
+                          path: 'assets/images/logo.svg',
+                        ),
                       ),
                       SizedBox(width: 16),
                       Column(
@@ -125,7 +128,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         'almost done ! ',
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
-                      SvgPicture.asset('assets/images/waving_hand.svg'),
+                      CustomSvgPicture.withoutColorFilter(
+                        path: 'assets/images/waving_hand.svg',
+                      ),
                     ],
                   ),
                   SizedBox(height: 16),

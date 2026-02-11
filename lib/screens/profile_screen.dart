@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
-import 'package:tasky/main.dart';
+import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/screens/user_details_screen.dart';
 import 'package:tasky/screens/welcome_screen.dart';
 
@@ -119,37 +119,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset(
-                    'assets/images/profile_icon.svg',
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.secondary,
-                      BlendMode.srcIn,
-                    ),
+                  leading: CustomSvgPicture(
+                    path: 'assets/images/profile_icon.svg',
                   ),
                   title: Text(
                     'user details',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  trailing: SvgPicture.asset(
-                    'assets/images/arrow_right_icon.svg',
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.secondary,
-
-                      BlendMode.srcIn,
-                    ),
+                  trailing: CustomSvgPicture(
+                    path: 'assets/images/arrow_right_icon.svg',
                   ),
                 ),
+
                 Divider(),
 
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset(
-                    'assets/images/dark_icon.svg',
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.secondary,
-                      BlendMode.srcIn,
-                    ),
+                  leading: CustomSvgPicture(
+                    path: 'assets/images/dark_icon.svg',
                   ),
+
                   title: Text('Dark Mode'),
                   trailing: ValueListenableBuilder(
                     valueListenable: ThemeController.themeNotifier,
@@ -177,20 +166,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     );
                   },
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset(
-                    'assets/images/log_out_icon.svg',
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.secondary,
-                      BlendMode.srcIn,
-                    ),
+                  leading: CustomSvgPicture(
+                    path: 'assets/images/log_out_icon.svg',
                   ),
                   title: Text('Log Out'),
-                  trailing: SvgPicture.asset(
-                    'assets/images/arrow_right_icon.svg',
-                    colorFilter: ColorFilter.mode(
-                      Theme.of(context).colorScheme.secondary,
-                      BlendMode.srcIn,
-                    ),
+                  trailing: CustomSvgPicture(
+                    path: 'assets/images/arrow_right_icon.svg',
                   ),
                 ),
               ],

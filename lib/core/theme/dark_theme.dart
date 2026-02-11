@@ -43,7 +43,7 @@ ThemeData darkTheme = ThemeData(
     titleTextStyle: TextStyle(
       color: Color(0XFFFFFCFC),
       fontSize: 20,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w400,
     ),
     centerTitle: false,
     iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
@@ -149,6 +149,37 @@ ThemeData darkTheme = ThemeData(
     cursorColor: Colors.white,
     selectionColor: Colors.grey[300]!,
     selectionHandleColor: Colors.white,
+  ),
+
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    backgroundColor: Color(0XFF181818),
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Color(0XFF15B86C),
+    unselectedItemColor: Color(0XFFC6C6C6),
+  ),
+  splashFactory: NoSplash.splashFactory,
+
+  popupMenuTheme: PopupMenuThemeData(
+    color: Color(0XFF181818),
+
+    // textStyle: TextStyle(
+    //   color: Color(0XFFFFFCFC),
+    //   fontSize: 10,
+    //   fontWeight: FontWeight.w400,
+    // ),
+    labelTextStyle: WidgetStatePropertyAll(
+      TextStyle(
+        color: Color(0XFFFFFCFC),
+        fontSize: 18,
+        fontWeight: FontWeight.w400,
+      ),
+    ),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(16),
+      side: BorderSide(color: Color(0XFF15B86C), width: 1),
+    ),
+    elevation: 2,
+    shadowColor: Color(0XFF15B86C),
   ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
