@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
-  colorScheme: ColorScheme.light(primaryContainer: Color(0XFFFFFFFF)),
+  colorScheme: ColorScheme.light(
+    primaryContainer: Color(0XFFFFFFFF),
+    secondary: Color(0XFF3A4640),
+  ),
 
   scaffoldBackgroundColor: Color(0XFFF6F7F9),
 
@@ -50,8 +53,16 @@ ThemeData lightTheme = ThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: Color(0XFF15B86C),
       foregroundColor: Color(0XFFFFFCFC),
+      textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
+  ),
+
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Color(0XFF15B86C),
+    foregroundColor: Color(0xffFFFCFC),
+    extendedTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
   ),
 
   textTheme: TextTheme(
@@ -130,8 +141,24 @@ ThemeData lightTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     side: BorderSide(color: Color(0XFFD1DAD6), width: 2),
   ),
-  iconTheme: IconThemeData(color: Color(0XFF3A4640)),
-
+  iconTheme: IconThemeData(color: Color(0XFF161F1B)),
+  listTileTheme: ListTileThemeData(
+    titleTextStyle: TextStyle(
+      color: Color(0XFF161F1B),
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
+  ),
+  dividerTheme: DividerThemeData(
+    color: Color(0XFFD1DAD6),
+    thickness: 1,
+    space: 1,
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: Colors.black,
+    selectionColor: Colors.grey[300]!,
+    selectionHandleColor: Colors.black,
+  ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),

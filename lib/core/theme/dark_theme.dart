@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  colorScheme: ColorScheme.dark(primaryContainer: Color(0XFF282828)),
+  colorScheme: ColorScheme.dark(
+    primaryContainer: Color(0XFF282828),
+    secondary: Color(0XFFC6C6C6),
+  ),
   scaffoldBackgroundColor: Color(0XFF181818),
 
   switchTheme: SwitchThemeData(
@@ -45,15 +48,21 @@ ThemeData darkTheme = ThemeData(
     centerTitle: false,
     iconTheme: IconThemeData(color: Color(0xffFFFCFC)),
   ),
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: Color(0XFF15B86C),
       foregroundColor: Color(0XFFFFFCFC),
-      textStyle: TextStyle(fontSize: 14),
+      textStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
     ),
   ),
-
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Color(0XFF15B86C),
+    foregroundColor: Color(0xffFFFCFC),
+    extendedTextStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+  ),
   textTheme: TextTheme(
     displaySmall: TextStyle(
       fontSize: 24,
@@ -123,11 +132,29 @@ ThemeData darkTheme = ThemeData(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     side: BorderSide(color: Color(0XFF6E6E6E), width: 2),
   ),
-  iconTheme: IconThemeData(color: Color(0XFFC6C6C6)),
+  iconTheme: IconThemeData(color: Color(0XFFFFFCFC)),
+  listTileTheme: ListTileThemeData(
+    titleTextStyle: TextStyle(
+      color: Color(0XFFFFFCFC),
+      fontSize: 16,
+      fontWeight: FontWeight.w400,
+    ),
+  ),
+  dividerTheme: DividerThemeData(
+    color: Color(0XFF6E6E6E),
+    thickness: 1,
+    space: 1,
+  ),
+  textSelectionTheme: TextSelectionThemeData(
+    cursorColor: Colors.white,
+    selectionColor: Colors.grey[300]!,
+    selectionHandleColor: Colors.white,
+  ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),
   //     foregroundColor: WidgetStateProperty.all(Color(0XFFFFFCFC)),
+  //     textStyle: WidgetStateProperty.all(TextStyle(fontSize: 14)),
   //     shape: WidgetStateProperty.all(
   //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
   //     ),

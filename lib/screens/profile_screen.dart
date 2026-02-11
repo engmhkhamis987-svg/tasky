@@ -20,9 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isLoading = false;
 
   Future<void> _loadUserName() async {
-    // setState(() {
-    //   isLoading = true;
-    // });
+    setState(() {
+      isLoading = true;
+    });
 
     setState(() {
       userName = PreferencesManager().getString('userName') ?? '';
@@ -52,11 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     'Profile Screen',
-                    style: TextStyle(
-                      color: Color(0xffFFFCFC),
-                      fontSize: 20,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
                 SizedBox(height: 16),
@@ -79,14 +75,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 45,
                               height: 45,
                               decoration: BoxDecoration(
-                                color: Color(0xff282828),
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.primaryContainer,
                                 borderRadius: BorderRadius.circular(100),
                               ),
-                              child: Icon(
-                                Icons.camera_alt_outlined,
-                                color: Color(0xffFFFCFC),
-                                size: 26,
-                              ),
+                              child: Icon(Icons.camera_alt_outlined, size: 26),
                             ),
                           ),
                         ],
@@ -94,20 +88,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 8),
                       Text(
                         userName,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0XFFFFFCFC),
-                        ),
+                        style: Theme.of(context).textTheme.labelSmall,
                       ),
                       SizedBox(height: 4),
                       Text(
                         motivationQuote,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                          color: Color(0XFFC6C6C6),
-                        ),
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -115,11 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SizedBox(height: 24),
                 Text(
                   'Profile info',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Color(0XFFFFFCFC),
-                  ),
+                  style: Theme.of(context).textTheme.labelSmall,
                 ),
                 ListTile(
                   onTap: () async {
@@ -137,23 +119,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   },
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset('assets/images/profile_icon.svg'),
+                  leading: SvgPicture.asset(
+                    'assets/images/profile_icon.svg',
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.secondary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                   title: Text(
                     'user details',
-                    style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   trailing: SvgPicture.asset(
                     'assets/images/arrow_right_icon.svg',
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.secondary,
+
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
-                Divider(color: Color(0XFFCAC4D0)),
+                Divider(),
+
                 ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset('assets/images/dark_icon.svg'),
-                  title: Text(
-                    'Dark Mode',
-                    style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+                  leading: SvgPicture.asset(
+                    'assets/images/dark_icon.svg',
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.secondary,
+                      BlendMode.srcIn,
+                    ),
                   ),
+                  title: Text('Dark Mode'),
                   trailing: ValueListenableBuilder(
                     valueListenable: ThemeController.themeNotifier,
                     builder: (context, value, child) {
@@ -166,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     },
                   ),
                 ),
-                Divider(color: Color(0XFFCAC4D0)),
+                Divider(),
                 ListTile(
                   onTap: () async {
                     PreferencesManager().remove('userName');
@@ -180,13 +177,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     );
                   },
                   contentPadding: EdgeInsets.zero,
-                  leading: SvgPicture.asset('assets/images/log_out_icon.svg'),
-                  title: Text(
-                    'Log Out',
-                    style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+                  leading: SvgPicture.asset(
+                    'assets/images/log_out_icon.svg',
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.secondary,
+                      BlendMode.srcIn,
+                    ),
                   ),
+                  title: Text('Log Out'),
                   trailing: SvgPicture.asset(
                     'assets/images/arrow_right_icon.svg',
+                    colorFilter: ColorFilter.mode(
+                      Theme.of(context).colorScheme.secondary,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ],

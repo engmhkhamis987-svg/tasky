@@ -177,11 +177,6 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: SizedBox(
         height: 44,
         child: FloatingActionButton.extended(
-          backgroundColor: Color(0XFF15B86C),
-          foregroundColor: Color(0xffFFFCFC),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
           onPressed: () async {
             final bool result = await Navigator.of(
               context,

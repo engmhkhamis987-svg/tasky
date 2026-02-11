@@ -26,14 +26,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: ThemeController.themeNotifier,
-      builder: (context, ThemeMode value, Widget? child) {
+      builder: (context, ThemeMode themeMode, Widget? child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           darkTheme: darkTheme,
-          themeMode: value,
+          themeMode: themeMode,
           title: 'Tasky App',
-          home: userName != null ? WelcomeScreen() : MainScreen(),
+          home: userName == null ? WelcomeScreen() : MainScreen(),
         );
       },
     );
