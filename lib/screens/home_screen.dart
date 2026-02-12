@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String? userName;
   List<TaskModel> tasks = [];
   bool isLoading = false;
+  String? userImagePath;
   int totalTasks = 0;
   int doneTasks = 0;
   double percent = 0;
@@ -27,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _loadUserName() async {
     setState(() {
       userName = PreferencesManager().getString('userName') ?? '';
+      userImagePath = PreferencesManager().getString('user_image');
     });
   }
 
@@ -102,9 +105,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       CircleAvatar(
-                        child: CustomSvgPicture.withoutColorFilter(
-                          path: 'assets/images/logo.svg',
-                        ),
+                        radius: 25,
+                        backgroundImage: userImagePath == null
+                            ? AssetImage('assets/images/person.png')
+                            : FileImage(File(userImagePath!)),
+                        backgroundColor: Colors.transparent,
                       ),
                       SizedBox(width: 16),
                       Column(

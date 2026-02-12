@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
@@ -17,6 +20,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool isDarkMode = true;
   late String userName;
   late String motivationQuote;
+  String? userImagePath;
   bool isLoading = false;
 
   Future<void> _loadUserName() async {
@@ -28,9 +32,104 @@ class _ProfileScreenState extends State<ProfileScreen> {
       userName = PreferencesManager().getString('userName') ?? '';
       motivationQuote =
           PreferencesManager().getString('motivation_quote') ?? '';
+      userImagePath = PreferencesManager().getString('user_image');
       isDarkMode = PreferencesManager().getBool("theme") ?? true;
       isLoading = false;
     });
+  }
+
+  Future<void> _pickProfileImage(ImageSource source) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: source);
+    if (image != null) {
+      final appDir = await getApplicationDocumentsDirectory();
+      final newFile = await File(
+        image.path,
+      ).copy('${appDir.path}/${image.name}');
+
+      PreferencesManager().setString("user_image", newFile.path);
+      setState(() {
+        userImagePath = image.path;
+      });
+    }
+  }
+
+  // void _saveImage(XFile file) async {
+  //   final appDir = await getApplicationCacheDirectory();
+  //   final newFile = await File(file.path).copy('${appDir.path}/${file.name}');
+  //   PreferencesManager().setString("user_image", newFile.path);
+  // }
+
+  void _showImagePickerOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.camera_alt),
+              title: Text('Camera'),
+              onTap: () {
+                Navigator.pop(context);
+                _pickProfileImage(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.image),
+              title: Text('Gallery'),
+              onTap: () {
+                Navigator.pop(context);
+                _pickProfileImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showImageSourceDialoge(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          title: Text(
+            "Choose Image Source",
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickProfileImage(ImageSource.camera);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.camera_alt),
+                  SizedBox(width: 15),
+                  Text("Camera"),
+                ],
+              ),
+            ),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                _pickProfileImage(ImageSource.gallery);
+              },
+              child: Row(
+                children: [
+                  Icon(Icons.camera_alt),
+                  SizedBox(width: 15),
+                  Text("Gallary"),
+                ],
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -64,15 +163,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           CircleAvatar(
                             radius: 60,
-                            backgroundImage: AssetImage(
-                              'assets/images/person.png',
-                            ),
+                            backgroundImage: userImagePath == null
+                                ? AssetImage('assets/images/person.png')
+                                : FileImage(File(userImagePath!)),
                             backgroundColor: Colors.transparent,
                           ),
                           GestureDetector(
-                            onTap: () {
-                              _showButtomSheet(context);
-                            },
+                            onTap: () => _showImageSourceDialoge(context),
+
+                            //_showImagePickerOptions,
                             child: Container(
                               width: 45,
                               height: 45,
