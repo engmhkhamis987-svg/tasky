@@ -9,10 +9,12 @@ class Slivertasklistwidget extends StatelessWidget {
     required this.onTap,
     required this.emptyString,
     required this.onDelete,
+    required this.onEdit,
   });
   final List<TaskModel> tasks;
   final Function(bool?, int?) onTap;
   final Function(int) onDelete;
+  final Function onEdit;
   final String emptyString;
 
   @override
@@ -36,6 +38,7 @@ class Slivertasklistwidget extends StatelessWidget {
                   model: tasks[index],
                   onChanged: (bool? value) => onTap(value, index),
                   onDelete: (int id) => onDelete(id),
+                  onEdit: () => onEdit(),
                 );
               },
             ),

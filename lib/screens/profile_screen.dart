@@ -70,7 +70,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             backgroundColor: Colors.transparent,
                           ),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              _showButtomSheet(context);
+                            },
                             child: Container(
                               width: 45,
                               height: 45,
@@ -177,5 +179,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           );
+  }
+
+  void _showButtomSheet(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      useSafeArea: true,
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.9,
+        minHeight: MediaQuery.of(context).size.height * 0.5,
+      ),
+      showDragHandle: true,
+      context: context,
+      builder: (context) {
+        return ListView.builder(
+          itemCount: 3,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              width: MediaQuery.of(context).size.width,
+              height: 50,
+              margin: EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+              color: Colors.red,
+            );
+          },
+        );
+      },
+    );
   }
 }

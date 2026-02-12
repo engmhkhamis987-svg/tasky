@@ -188,6 +188,12 @@ ThemeData lightTheme = ThemeData(
     elevation: 2,
     shadowColor: Color(0XFF15B86C),
   ),
+  bottomSheetTheme: BottomSheetThemeData(
+    backgroundColor: Color(0XFFF6F7F9),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+  ),
   // elevatedButtonTheme: ElevatedButtonThemeData(
   //   style: ButtonStyle(
   //     backgroundColor: WidgetStateProperty.all(Color(0XFF15B86C)),

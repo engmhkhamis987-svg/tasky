@@ -110,6 +110,7 @@ class _HighPriorityScreenState extends State<HighPriorityScreen> {
                     }
                   },
                   onDelete: (id) => _deleteTask(id),
+                  onEdit: () => _loadTasks(),
                   emptyString: 'No tasks available',
                 ),
               ),

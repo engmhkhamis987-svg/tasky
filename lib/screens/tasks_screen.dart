@@ -114,6 +114,7 @@ class _TasksScreenState extends State<TasksScreen> {
                     onDelete: (id) {
                       _deleteTask(id);
                     },
+                    onEdit: () => _loadTasks(),
                     emptyString: 'No tasks available',
                   ),
                 ),

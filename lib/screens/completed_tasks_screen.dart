@@ -110,6 +110,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
                 }
               },
               onDelete: (id) => _deleteTask(id),
+              onEdit: () => _loadTasks(),
               emptyString: 'No tasks Completed',
             ),
           ),
