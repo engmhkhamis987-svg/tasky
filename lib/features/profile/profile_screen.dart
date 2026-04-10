@@ -3,11 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
-import 'package:tasky/screens/user_details_screen.dart';
-import 'package:tasky/screens/welcome_screen.dart';
+import 'package:tasky/features/profile/user_details_screen.dart';
+import 'package:tasky/features/welcome/welcome_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -64,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showModalBottomSheet(
       context: context,
       builder: (context) => Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(AppSizes.w16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -108,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   Icon(Icons.camera_alt),
-                  SizedBox(width: 15),
+                  SizedBox(width: AppSizes.pw16),
                   Text("Camera"),
                 ],
               ),
@@ -121,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   Icon(Icons.camera_alt),
-                  SizedBox(width: 15),
+                  SizedBox(width: AppSizes.pw16),
                   Text("Gallary"),
                 ],
               ),
@@ -143,18 +144,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return isLoading
         ? Center(child: CircularProgressIndicator(color: Color(0xffFFFCFC)))
         : Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(AppSizes.pw16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 6),
+                  padding: EdgeInsets.only(top: AppSizes.ph6),
                   child: Text(
                     'Profile Screen',
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
                 ),
-                SizedBox(height: 16),
+                SizedBox(height: AppSizes.ph16),
                 Center(
                   child: Column(
                     children: [
@@ -162,7 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.bottomRight,
                         children: [
                           CircleAvatar(
-                            radius: 60,
+                            radius: 60, //AppSizes.r60
                             backgroundImage: userImagePath == null
                                 ? AssetImage('assets/images/person.png')
                                 : FileImage(File(userImagePath!)),
@@ -173,25 +174,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                             //_showImagePickerOptions,
                             child: Container(
-                              width: 45,
-                              height: 45,
+                              width: AppSizes.w45,
+                              height: AppSizes.w45,
                               decoration: BoxDecoration(
                                 color: Theme.of(
                                   context,
                                 ).colorScheme.primaryContainer,
-                                borderRadius: BorderRadius.circular(100),
+                                borderRadius: BorderRadius.circular(
+                                  AppSizes.r100,
+                                ),
                               ),
-                              child: Icon(Icons.camera_alt_outlined, size: 26),
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                size: AppSizes.r26,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: AppSizes.ph8),
                       Text(
                         userName,
                         style: Theme.of(context).textTheme.labelSmall,
                       ),
-                      SizedBox(height: 4),
+                      SizedBox(height: AppSizes.ph4),
                       Text(
                         motivationQuote,
                         style: Theme.of(context).textTheme.titleSmall,
@@ -199,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                SizedBox(height: 24),
+                SizedBox(height: AppSizes.ph24),
                 Text(
                   'Profile info',
                   style: Theme.of(context).textTheme.labelSmall,

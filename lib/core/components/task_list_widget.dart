@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/components/task_item_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_item_widget.dart';
 
 class TaskListWidget extends StatelessWidget {
   const TaskListWidget({
@@ -31,9 +32,10 @@ class TaskListWidget extends StatelessWidget {
         : ListView.separated(
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            padding: EdgeInsets.only(bottom: 50),
+            padding: EdgeInsets.only(bottom: AppSizes.ph50),
             itemCount: tasks.length,
-            separatorBuilder: (context, index) => SizedBox(height: 8),
+            separatorBuilder: (context, index) =>
+                SizedBox(height: AppSizes.ph8),
             itemBuilder: (context, index) {
               return TaskItemWidget(
                 model: tasks[index],

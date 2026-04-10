@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 
@@ -41,7 +42,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('User Details')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(AppSizes.pw16),
         child: Form(
           key: _formKey,
           child: Column(
@@ -57,7 +58,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: AppSizes.ph20),
               CustomTextFormField(
                 controller: motivationQuoteController,
                 title: 'Motivation Quote',
@@ -86,9 +87,9 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                     Navigator.of(context).pop(true);
                   }
                 },
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width - 32, 40),
-                ),
+                // style: ElevatedButton.styleFrom(
+                //   fixedSize: Size(MediaQuery.of(context).size.width - 32, 40),
+                // ),
                 child: Text('Save Changes'),
               ),
             ],

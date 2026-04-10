@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -26,10 +27,10 @@ class TaskItemWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      height: 54,
+      height: AppSizes.h56,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSizes.r16),
         border: Border.all(
           color: ThemeController.isDark()
               ? Colors.transparent
@@ -39,12 +40,12 @@ class TaskItemWidget extends StatelessWidget {
 
       child: Row(
         children: [
-          SizedBox(height: 8),
+          SizedBox(height: AppSizes.ph8),
           CustomCheckbox(
             value: model.isDone,
             onChanged: (val) => onChanged(val),
           ),
-          SizedBox(height: 16),
+          SizedBox(height: AppSizes.ph16),
 
           Expanded(
             child: Column(
@@ -62,7 +63,10 @@ class TaskItemWidget extends StatelessWidget {
                 if (model.taskDescription.isNotEmpty)
                   Text(
                     model.taskDescription,
-                    style: TextStyle(color: Color(0XFFC6C6C6), fontSize: 14),
+                    style: TextStyle(
+                      color: Color(0XFFC6C6C6),
+                      fontSize: AppSizes.sp14,
+                    ),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                   ),
@@ -144,7 +148,7 @@ class TaskItemWidget extends StatelessWidget {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) => Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(AppSizes.pw16),
             child: Form(
               key: formKey,
               child: Column(
@@ -162,7 +166,7 @@ class TaskItemWidget extends StatelessWidget {
                     },
                   ),
 
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSizes.ph20),
 
                   CustomTextFormField(
                     controller: taskDescController,
@@ -171,7 +175,7 @@ class TaskItemWidget extends StatelessWidget {
                     maxLines: 5,
                   ),
 
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSizes.ph20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -193,10 +197,10 @@ class TaskItemWidget extends StatelessWidget {
                   ),
                   Spacer(),
                   Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 20.0,
-                      right: 16.0,
-                      left: 16.0,
+                    padding: EdgeInsets.only(
+                      bottom: AppSizes.ph20,
+                      right: AppSizes.pw16,
+                      left: AppSizes.pw16,
                     ),
                     child: ElevatedButton.icon(
                       onPressed: () async {
@@ -238,9 +242,9 @@ class TaskItemWidget extends StatelessWidget {
                       icon: Icon(Icons.edit),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(AppSizes.r30),
                         ),
-                        fixedSize: Size(MediaQuery.of(context).size.width, 40),
+                        // fixedSize: Size(MediaQuery.of(context).size.width, 40),
                       ),
                     ),
                   ),

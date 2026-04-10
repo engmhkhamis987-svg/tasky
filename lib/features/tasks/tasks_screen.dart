@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/components/task_list_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_list_widget.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
@@ -32,11 +33,10 @@ class _TasksScreenState extends State<TasksScreen> {
             .where((e) => e.isDone == false)
             .toList();
       });
-
-      setState(() {
-        isLoading = false;
-      });
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   Future<void> _deleteTask(int id) async {
@@ -71,7 +71,7 @@ class _TasksScreenState extends State<TasksScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: EdgeInsets.all(AppSizes.pw18),
           child: Text(
             'To Do Tasks',
             style: Theme.of(context).textTheme.labelSmall,
@@ -79,9 +79,9 @@ class _TasksScreenState extends State<TasksScreen> {
         ),
         Expanded(
           child: isLoading
-              ? CircularProgressIndicator()
+              ? Center(child: CircularProgressIndicator())
               : Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding: EdgeInsets.all(AppSizes.pw16),
                   child: TaskListWidget(
                     tasks: todoTasks,
                     onTap: (bool? value, int? index) async {

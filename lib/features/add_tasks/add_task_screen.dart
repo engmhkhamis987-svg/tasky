@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
 import 'package:tasky/models/task_model.dart';
@@ -30,7 +31,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
     return Scaffold(
       appBar: AppBar(title: Text('New Task')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(AppSizes.pw16),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -49,7 +50,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   },
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: AppSizes.ph20),
 
                 CustomTextFormField(
                   controller: taskDescController,
@@ -58,7 +59,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                   maxLines: 5,
                 ),
 
-                SizedBox(height: 20),
+                SizedBox(height: AppSizes.ph20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -84,7 +85,11 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0, right: 16.0, left: 16.0),
+        padding: EdgeInsets.only(
+          bottom: AppSizes.ph20,
+          right: AppSizes.pw16,
+          left: AppSizes.pw16,
+        ),
         child: ElevatedButton.icon(
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
@@ -115,9 +120,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
           icon: Icon(Icons.add),
           style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(AppSizes.r30),
             ),
-            fixedSize: Size(MediaQuery.of(context).size.width, 44),
+            // fixedSize: Size(MediaQuery.of(context).size.width, 44),
           ),
         ),
       ),

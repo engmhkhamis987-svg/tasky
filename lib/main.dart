@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/dark_theme.dart';
 import 'package:tasky/core/theme/light_theme.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
-import 'package:tasky/screens/main_screen.dart';
-import 'package:tasky/screens/welcome_screen.dart';
+import 'package:tasky/features/navigations/main_screen.dart';
+import 'package:tasky/features/welcome/welcome_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await ScreenUtil.ensureScreenSize();
 
   await PreferencesManager().init();
   ThemeController().init();
-
   final savedName = PreferencesManager().getString('userName');
 
   runApp(MyApp(userName: savedName));
@@ -27,13 +28,19 @@ class MyApp extends StatelessWidget {
     return ValueListenableBuilder<ThemeMode>(
       valueListenable: ThemeController.themeNotifier,
       builder: (context, ThemeMode themeMode, Widget? child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: lightTheme,
-          darkTheme: darkTheme,
-          themeMode: themeMode,
-          title: 'Tasky App',
-          home: userName == null ? WelcomeScreen() : MainScreen(),
+        return ScreenUtilInit(
+          designSize: const Size(375, 809),
+          minTextAdapt: true,
+          builder: (ctx, _) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: lightTheme,
+              darkTheme: darkTheme,
+              themeMode: themeMode,
+              title: 'Tasky App',
+              home: userName == null ? WelcomeScreen() : MainScreen(),
+            );
+          },
         );
       },
     );

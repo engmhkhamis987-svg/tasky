@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/components/task_list_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_list_widget.dart';
 
 class CompletedTasksScreen extends StatefulWidget {
   const CompletedTasksScreen({super.key});
@@ -71,7 +72,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: EdgeInsets.all(AppSizes.pw18),
           child: Text(
             'Completed Tasks',
             style: Theme.of(context).textTheme.labelSmall,
@@ -80,7 +81,7 @@ class _CompletedTasksScreenState extends State<CompletedTasksScreen> {
 
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(AppSizes.pw16),
             child: TaskListWidget(
               tasks: completedTasks,
               onTap: (bool? value, int? index) async {

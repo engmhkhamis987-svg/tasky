@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tasky/core/components/task_item_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_item_widget.dart';
 
 class Slivertasklistwidget extends StatelessWidget {
   const Slivertasklistwidget({
@@ -24,15 +25,19 @@ class Slivertasklistwidget extends StatelessWidget {
             child: Center(
               child: Text(
                 emptyString,
-                style: TextStyle(color: Color(0XFFFFFCFC), fontSize: 16),
+                style: TextStyle(
+                  color: Color(0XFFFFFCFC),
+                  fontSize: AppSizes.sp16,
+                ),
               ),
             ),
           )
         : SliverPadding(
-            padding: EdgeInsets.only(bottom: 80),
+            padding: EdgeInsets.only(bottom: AppSizes.ph80),
             sliver: SliverList.separated(
               itemCount: tasks.length,
-              separatorBuilder: (context, index) => SizedBox(height: 8),
+              separatorBuilder: (context, index) =>
+                  SizedBox(height: AppSizes.ph8),
               itemBuilder: (context, index) {
                 return TaskItemWidget(
                   model: tasks[index],

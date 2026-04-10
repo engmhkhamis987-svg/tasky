@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/components/task_list_widget.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/widgets/task_list_widget.dart';
 
 class HighPriorityScreen extends StatefulWidget {
   const HighPriorityScreen({super.key});
@@ -72,11 +73,11 @@ class _HighPriorityScreenState extends State<HighPriorityScreen> {
     return Scaffold(
       appBar: AppBar(title: const Text('High Priority Tasks')),
       body: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: EdgeInsets.all(AppSizes.pw18),
         child: isLoading
             ? CircularProgressIndicator()
             : Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(AppSizes.pw16),
                 child: TaskListWidget(
                   tasks: highPriorityTasks,
                   onTap: (bool? value, int? index) async {

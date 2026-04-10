@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
+import 'package:tasky/features/add_tasks/add_task_screen.dart';
+import 'package:tasky/features/home/components/achieved%20Tasks_widget.dart';
+import 'package:tasky/features/home/components/high_priority_tasks_widget.dart';
+import 'package:tasky/features/home/components/sliverTaskListWidget.dart';
 import 'package:tasky/models/task_model.dart';
-import 'package:tasky/screens/add_task_screen.dart';
-import 'package:tasky/widgets/achieved%20Tasks_widget.dart';
-import 'package:tasky/widgets/high_priority_tasks_widget.dart';
-import 'package:tasky/widgets/sliverTaskListWidget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(AppSizes.w16),
         child: CustomScrollView(
           slivers: [
             SliverToBoxAdapter(
@@ -105,13 +105,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   Row(
                     children: [
                       CircleAvatar(
-                        radius: 25,
+                        radius: AppSizes.r32,
                         backgroundImage: userImagePath == null
                             ? AssetImage('assets/images/person.png')
                             : FileImage(File(userImagePath!)),
                         backgroundColor: Colors.transparent,
                       ),
-                      SizedBox(width: 16),
+                      SizedBox(width: AppSizes.w8),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.h16),
                   Text(
                     'Yuhuu ,Your work Is',
                     style: Theme.of(context).textTheme.displayLarge,
@@ -148,14 +148,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.ph16),
 
                   AchievedTasksWidget(
                     doneTasks: doneTasks,
                     totalTasks: totalTasks,
                     percent: percent,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.ph16),
                   HighPriorityTasksWidget(
                     tasks: tasks,
                     onTap: (val, index) {
@@ -164,12 +164,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     refresh: _loadTasks,
                   ),
 
-                  SizedBox(height: 20),
+                  SizedBox(height: AppSizes.ph20),
                   Text(
                     'My Tasks',
                     style: Theme.of(context).textTheme.labelSmall,
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: AppSizes.ph16),
                 ],
               ),
             ),
@@ -200,13 +200,13 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       floatingActionButton: SizedBox(
-        height: 44,
+        height: AppSizes.h44,
         child: FloatingActionButton.extended(
           onPressed: () async {
             final bool result = await Navigator.of(
               context,
             ).push(MaterialPageRoute(builder: (context) => AddTaskScreen()));
-            if (result && result != null) {
+            if (result) {
               _loadTasks();
             }
           },

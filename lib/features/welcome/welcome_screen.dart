@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
-
-import 'package:tasky/screens/main_screen.dart';
+import 'package:tasky/features/navigations/main_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   WelcomeScreen({super.key});
@@ -19,24 +18,24 @@ class WelcomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 30),
+              SizedBox(height: AppSizes.ph30),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CustomSvgPicture.withoutColorFilter(
                     path: 'assets/images/logo.svg',
-                    width: 42,
-                    height: 42,
+                    width: AppSizes.w42,
+                    height: AppSizes.h42,
                   ),
 
-                  SizedBox(width: 16),
+                  SizedBox(width: AppSizes.pw16),
                   Text(
                     'Tasky',
                     style: Theme.of(context).textTheme.displayMedium,
                   ),
                 ],
               ),
-              SizedBox(height: 118),
+              SizedBox(height: AppSizes.ph100),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -44,34 +43,34 @@ class WelcomeScreen extends StatelessWidget {
                     'Welcome To Tasky',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
-                  SizedBox(width: 8),
+                  SizedBox(width: AppSizes.pw8),
                   CustomSvgPicture.withoutColorFilter(
                     path: 'assets/images/waving_hand.svg',
-                    width: 42,
-                    height: 42,
+                    width: AppSizes.w42,
+                    height: AppSizes.h42,
                   ),
                 ],
               ),
-              SizedBox(height: 8),
+              SizedBox(height: AppSizes.ph8),
               Text(
                 'Your productivity journey starts here.',
                 style: Theme.of(
                   context,
-                ).textTheme.displaySmall!.copyWith(fontSize: 16),
+                ).textTheme.displaySmall!.copyWith(fontSize: AppSizes.sp16),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: AppSizes.ph24),
 
               CustomSvgPicture.withoutColorFilter(
                 path: 'assets/images/welcome.svg',
-                width: 215,
-                height: 200,
+                width: AppSizes.w200,
+                height: AppSizes.h200,
               ),
-              SizedBox(height: 24),
+              SizedBox(height: AppSizes.ph24),
 
               Form(
                 key: _formKey,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  padding: EdgeInsets.symmetric(horizontal: AppSizes.pw16),
                   child: CustomTextFormField(
                     controller: _nameController,
                     maxLines: 1,
@@ -87,31 +86,31 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 24),
-              ElevatedButton(
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    await PreferencesManager().setString(
-                      'userName',
-                      _nameController.value.text.trim(),
-                    );
+              SizedBox(height: AppSizes.ph24),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.ph16),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      await PreferencesManager().setString(
+                        'userName',
+                        _nameController.value.text.trim(),
+                      );
 
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => MainScreen()),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Enter Your Full Name")),
-                    );
-                  }
-                },
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) => MainScreen()),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Enter Your Full Name")),
+                      );
+                    }
+                  },
 
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(MediaQuery.of(context).size.width - 32, 40),
+                  child: Text('Let’s Get Started'),
                 ),
-                child: Text('Let’s Get Started'),
               ),
-              SizedBox(height: 24),
+              SizedBox(height: AppSizes.ph24),
             ],
           ),
         ),

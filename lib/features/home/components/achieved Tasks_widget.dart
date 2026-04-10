@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:tasky/core/constants/app_sizes.dart';
 
 class AchievedTasksWidget extends StatelessWidget {
   const AchievedTasksWidget({
@@ -16,11 +17,11 @@ class AchievedTasksWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.all(AppSizes.w16),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(AppSizes.r20),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -32,7 +33,7 @@ class AchievedTasksWidget extends StatelessWidget {
                 'Achieved Tasks',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              SizedBox(height: 4),
+              SizedBox(height: AppSizes.h4),
               Text(
                 '$doneTasks Out of $totalTasks Done',
                 style: Theme.of(context).textTheme.titleSmall,
@@ -45,8 +46,8 @@ class AchievedTasksWidget extends StatelessWidget {
               Transform.rotate(
                 angle: -pi / 2,
                 child: SizedBox(
-                  width: 48,
-                  height: 48,
+                  width: AppSizes.w48,
+                  height: AppSizes.w48,
                   child: CircularProgressIndicator(
                     value: percent,
                     // color: Color(0XFF15B86C),
@@ -62,7 +63,7 @@ class AchievedTasksWidget extends StatelessWidget {
                 '${(percent * 100).toInt()} %',
                 style: Theme.of(
                   context,
-                ).textTheme.titleMedium!.copyWith(fontSize: 14),
+                ).textTheme.titleMedium!.copyWith(fontSize: AppSizes.sp14),
               ),
             ],
           ),
