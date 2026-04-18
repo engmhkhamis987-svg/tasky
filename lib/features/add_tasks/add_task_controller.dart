@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/storage_key.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
 
@@ -20,6 +22,8 @@ class AddTaskController with ChangeNotifier {
       if (tasks != null) {
         taskList = jsonDecode(tasks);
       }
+      // taskList = await FileStorageManager().loadTasks();
+
       TaskModel model = TaskModel(
         id: taskList.length + 1,
         taskName: taskNameController.text.trim(),
@@ -29,8 +33,9 @@ class AddTaskController with ChangeNotifier {
 
       taskList.add(model.toMap());
 
-      final updatedTasks = jsonEncode(taskList);
+      // await FileStorageManager().saveTasks(taskList);
 
+      final updatedTasks = jsonEncode(taskList);
       await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
 
       Navigator.of(context).pop(true);

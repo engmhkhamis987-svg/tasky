@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_checkbox.dart';
@@ -28,7 +29,7 @@ class TaskItemWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      height: 80,
+      height: AppSizes.h80,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(AppSizes.r16),
@@ -215,6 +216,7 @@ class TaskItemWidget extends StatelessWidget {
                             taskList = jsonDecode(tasks);
                           }
 
+                          // taskList = await FileStorageManager().loadTasks();
                           TaskModel newModel = TaskModel(
                             id: model.id,
                             taskName: taskNameController.text.trim(),

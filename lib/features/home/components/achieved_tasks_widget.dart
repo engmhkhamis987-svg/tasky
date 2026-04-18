@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
-import 'package:tasky/features/home/home_controller.dart';
 import 'package:tasky/features/tasks/tasks_controller.dart';
 
 class AchievedTasksWidget extends StatelessWidget {

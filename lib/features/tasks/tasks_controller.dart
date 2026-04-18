@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/storage_key.dart';
+import 'package:tasky/core/services/file_storage_manager.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/models/task_model.dart';
 
@@ -24,6 +26,9 @@ class TasksController with ChangeNotifier {
   Future<void> _loadTasks() async {
     isLoading = true;
     notifyListeners();
+
+    // final tasksData = await FileStorageManager().loadTasks();
+    // tasks = tasksData.map((task) => TaskModel.fromMap(task)).toList();
 
     final finalTasks = PreferencesManager().getString(StorageKey.tasks);
     if (finalTasks != null) {
@@ -57,6 +62,8 @@ class TasksController with ChangeNotifier {
     _loadData();
     _calculateProgress();
 
+    //  await FileStorageManager().saveTasks(tasks.map((task) => task.toMap()).toList());
+
     final String encodedData = jsonEncode(
       tasks.map((task) => task.toMap()).toList(),
     );
@@ -71,10 +78,13 @@ class TasksController with ChangeNotifier {
     _loadData();
     _calculateProgress();
 
+    //  await FileStorageManager().saveTasks(tasks.map((task) => task.toMap()).toList());
+
     final String updatedTasks = jsonEncode(
       tasks.map((task) => task.toMap()).toList(),
     );
-    await PreferencesManager().setString('tasks', updatedTasks);
+
+    await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
     notifyListeners();
   }
 }

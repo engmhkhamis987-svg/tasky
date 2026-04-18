@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
 import 'package:tasky/features/add_tasks/add_task_screen.dart';
-import 'package:tasky/features/home/components/achieved%20Tasks_widget.dart';
+import 'package:tasky/features/home/components/achieved_tasks_widget.dart';
 import 'package:tasky/features/home/components/high_priority_tasks_widget.dart';
 import 'package:tasky/features/home/components/sliverTaskListWidget.dart';
 import 'package:tasky/features/home/home_controller.dart';
