@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
@@ -142,8 +143,8 @@ class TaskItemWidget extends StatelessWidget {
     GlobalKey<FormState> formKey = GlobalKey();
     bool isHighPriority = model.isHighPriority;
     return showModalBottomSheet<bool?>(
-      // isScrollControlled: true,
-      // useSafeArea: true,
+      isScrollControlled: true,
+      useSafeArea: true,
       context: context,
       builder: (context) {
         return StatefulBuilder(
@@ -206,7 +207,9 @@ class TaskItemWidget extends StatelessWidget {
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           List taskList = [];
-                          final tasks = PreferencesManager().getString("tasks");
+                          final tasks = PreferencesManager().getString(
+                            StorageKey.tasks,
+                          );
 
                           if (tasks != null) {
                             taskList = jsonDecode(tasks);
@@ -231,7 +234,7 @@ class TaskItemWidget extends StatelessWidget {
                           final updatedTasks = jsonEncode(taskList);
 
                           await PreferencesManager().setString(
-                            "tasks",
+                            StorageKey.tasks,
                             updatedTasks,
                           );
 

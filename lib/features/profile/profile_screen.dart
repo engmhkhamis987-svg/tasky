@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
+import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_svg_picture.dart';
@@ -30,11 +31,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     setState(() {
-      userName = PreferencesManager().getString('userName') ?? '';
+      userName = PreferencesManager().getString(StorageKey.username) ?? '';
       motivationQuote =
-          PreferencesManager().getString('motivation_quote') ?? '';
-      userImagePath = PreferencesManager().getString('user_image');
-      isDarkMode = PreferencesManager().getBool("theme") ?? true;
+          PreferencesManager().getString(StorageKey.motivationQuote) ?? '';
+      userImagePath = PreferencesManager().getString(StorageKey.userImage);
+      isDarkMode = PreferencesManager().getBool(StorageKey.theme) ?? true;
       isLoading = false;
     });
   }
@@ -48,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         image.path,
       ).copy('${appDir.path}/${image.name}');
 
-      PreferencesManager().setString("user_image", newFile.path);
+      PreferencesManager().setString(StorageKey.userImage, newFile.path);
       setState(() {
         userImagePath = image.path;
       });
@@ -262,10 +263,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Divider(),
                 ListTile(
                   onTap: () async {
-                    PreferencesManager().remove('userName');
-                    PreferencesManager().remove('motivation_quote');
-                    PreferencesManager().remove('tasks');
-                    PreferencesManager().remove('theme');
+                    PreferencesManager().remove(StorageKey.username);
+                    PreferencesManager().remove(StorageKey.motivationQuote);
+                    PreferencesManager().remove(StorageKey.userImage);
+                    PreferencesManager().remove(StorageKey.theme);
 
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => WelcomeScreen()),
