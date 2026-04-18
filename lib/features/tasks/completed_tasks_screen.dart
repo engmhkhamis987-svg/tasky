@@ -9,37 +9,37 @@ class CompletedTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => TasksController()..init(),
-      builder: (context, child) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(AppSizes.pw18),
-            child: Text(
-              'Completed Tasks',
-              style: Theme.of(context).textTheme.labelSmall,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(AppSizes.pw18),
+          child: Text(
+            'Completed Tasks',
+            style: Theme.of(context).textTheme.labelSmall,
           ),
+        ),
 
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.all(AppSizes.pw16),
-              child: Consumer<TasksController>(
-                builder: (context, controller, child) => TaskListWidget(
-                  tasks: controller.completedTasks,
-                  onTap: (bool? value, int? index) async {
-                    controller.doneCompletedTask(value, index);
-                  },
-                  onDelete: (id) => controller.deleteTask(id),
-                  onEdit: () => controller.init(),
-                  emptyString: 'No tasks Completed',
-                ),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(AppSizes.pw16),
+            child: Consumer<TasksController>(
+              builder: (context, controller, child) => TaskListWidget(
+                tasks: controller.completedTasks,
+                onTap: (bool? value, int? index) async {
+                  controller.doneTask(
+                    value,
+                    controller.completedTasks[index!].id,
+                  );
+                },
+                onDelete: (id) => controller.deleteTask(id),
+                onEdit: () => controller.init(),
+                emptyString: 'No tasks Completed',
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/services/preferences_manager.dart';
@@ -10,13 +8,13 @@ class HomeController extends ChangeNotifier {
   List<TaskModel> tasks = [];
   bool isLoading = false;
   String? userImagePath;
-  int totalTasks = 0;
-  int doneTasks = 0;
-  double percent = 0;
+  // int totalTasks = 0;
+  // int doneTasks = 0;
+  // double percent = 0;
 
   void init() {
     loadUserData();
-    loadTasks();
+    // loadTasks();
   }
 
   Future<void> loadUserData() async {
@@ -25,50 +23,50 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> loadTasks() async {
-    isLoading = true;
-    notifyListeners();
+  // Future<void> loadTasks() async {
+  //   isLoading = true;
+  //   notifyListeners();
 
-    final finalTasks = PreferencesManager().getString(StorageKey.tasks);
-    if (finalTasks != null) {
-      final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
+  //   final finalTasks = PreferencesManager().getString(StorageKey.tasks);
+  //   if (finalTasks != null) {
+  //     final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
 
-      tasks = tasksAfterDecode.map((task) => TaskModel.fromMap(task)).toList();
+  //     tasks = tasksAfterDecode.map((task) => TaskModel.fromMap(task)).toList();
 
-      calculateProgress();
-    }
+  //     calculateProgress();
+  //   }
 
-    isLoading = false;
-    notifyListeners();
-  }
+  //   isLoading = false;
+  //   notifyListeners();
+  // }
 
-  void calculateProgress() {
-    totalTasks = tasks.length;
-    doneTasks = tasks.where((e) => e.isDone).length;
-    percent = totalTasks == 0 ? 0 : (doneTasks / totalTasks);
-  }
+  // void calculateProgress() {
+  //   totalTasks = tasks.length;
+  //   doneTasks = tasks.where((e) => e.isDone).length;
+  //   percent = totalTasks == 0 ? 0 : (doneTasks / totalTasks);
+  // }
 
-  Future<void> doneTask(bool? val, int? index) async {
-    tasks[index!].isDone = val ?? false;
-    calculateProgress();
+  // Future<void> doneTask(bool? val, int? index) async {
+  //   tasks[index!].isDone = val ?? false;
+  //   calculateProgress();
 
-    final String encodedData = jsonEncode(
-      tasks.map((task) => task.toMap()).toList(),
-    );
-    await PreferencesManager().setString(StorageKey.tasks, encodedData);
+  //   final String encodedData = jsonEncode(
+  //     tasks.map((task) => task.toMap()).toList(),
+  //   );
+  //   await PreferencesManager().setString(StorageKey.tasks, encodedData);
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
-  Future<void> deleteTask(int id) async {
-    tasks.removeWhere((task) => task.id == id);
+  // Future<void> deleteTask(int id) async {
+  //   tasks.removeWhere((task) => task.id == id);
 
-    calculateProgress();
+  //   calculateProgress();
 
-    final String updatedTasks = jsonEncode(
-      tasks.map((task) => task.toMap()).toList(),
-    );
-    await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
-    notifyListeners();
-  }
+  //   final String updatedTasks = jsonEncode(
+  //     tasks.map((task) => task.toMap()).toList(),
+  //   );
+  //   await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
+  //   notifyListeners();
+  // }
 }

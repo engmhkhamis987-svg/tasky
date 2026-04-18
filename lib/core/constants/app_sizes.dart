@@ -15,6 +15,7 @@ class AppSizes {
   static final double h48 = 48.h;
   static final double h50 = 50.h;
   static final double h56 = 56.h;
+  static final double h80 = 80.h;
   static final double h200 = 200.h;
 
   // Widths

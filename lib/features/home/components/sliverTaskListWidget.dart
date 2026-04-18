@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasky/core/components/task_item_widget.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
-import 'package:tasky/features/home/home_controller.dart';
+import 'package:tasky/features/tasks/tasks_controller.dart';
 import 'package:tasky/models/task_model.dart';
 
 class Slivertasklistwidget extends StatelessWidget {
@@ -10,9 +10,9 @@ class Slivertasklistwidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<HomeController>(
+    return Consumer<TasksController>(
       builder:
-          (BuildContext context, HomeController controller, Widget? child) {
+          (BuildContext context, TasksController controller, Widget? child) {
             final List<TaskModel> tasksList = controller.tasks;
             return controller.isLoading
                 ? SliverToBoxAdapter(
@@ -45,7 +45,7 @@ class Slivertasklistwidget extends StatelessWidget {
                         return TaskItemWidget(
                           model: tasksList[index],
                           onChanged: (bool? value) =>
-                              controller.doneTask(value, index),
+                              controller.doneTask(value, tasksList[index].id),
                           onDelete: (int id) => controller.deleteTask(id),
                           onEdit: () => controller.init(),
                         );

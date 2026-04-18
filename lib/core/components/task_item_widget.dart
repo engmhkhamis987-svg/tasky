@@ -28,7 +28,7 @@ class TaskItemWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      height: AppSizes.h56,
+      height: 80,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.circular(AppSizes.r16),
