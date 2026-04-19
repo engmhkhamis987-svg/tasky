@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:tasky/core/constants/storage_key.dart';
-import 'package:tasky/core/services/file_storage_manager.dart';
-import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/services/hive_storage_manager.dart';
 import 'package:tasky/models/task_model.dart';
 
 class TasksController with ChangeNotifier {
@@ -27,17 +22,10 @@ class TasksController with ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    // final tasksData = await FileStorageManager().loadTasks();
-    // tasks = tasksData.map((task) => TaskModel.fromMap(task)).toList();
+    tasks = HiveStorageManager().loadTasks();
+    _loadData();
+    _calculateProgress();
 
-    final finalTasks = PreferencesManager().getString(StorageKey.tasks);
-    if (finalTasks != null) {
-      final List<dynamic> tasksAfterDecode = jsonDecode(finalTasks);
-
-      tasks = tasksAfterDecode.map((task) => TaskModel.fromMap(task)).toList();
-      _loadData();
-      _calculateProgress();
-    }
     isLoading = false;
     notifyListeners();
   }
@@ -61,13 +49,7 @@ class TasksController with ChangeNotifier {
     tasks[index].isDone = val ?? false;
     _loadData();
     _calculateProgress();
-
-    //  await FileStorageManager().saveTasks(tasks.map((task) => task.toMap()).toList());
-
-    final String encodedData = jsonEncode(
-      tasks.map((task) => task.toMap()).toList(),
-    );
-    await PreferencesManager().setString(StorageKey.tasks, encodedData);
+    await HiveStorageManager().saveTasks(tasks);
 
     notifyListeners();
   }
@@ -78,13 +60,8 @@ class TasksController with ChangeNotifier {
     _loadData();
     _calculateProgress();
 
-    //  await FileStorageManager().saveTasks(tasks.map((task) => task.toMap()).toList());
+    await HiveStorageManager().saveTasks(tasks);
 
-    final String updatedTasks = jsonEncode(
-      tasks.map((task) => task.toMap()).toList(),
-    );
-
-    await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
     notifyListeners();
   }
 }

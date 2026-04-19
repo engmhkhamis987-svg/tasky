@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:tasky/core/constants/app_sizes.dart';
-import 'package:tasky/core/constants/storage_key.dart';
 import 'package:tasky/core/enums/task_item_actions_enum.dart';
-import 'package:tasky/core/services/file_storage_manager.dart';
-import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/services/hive_storage_manager.dart';
 import 'package:tasky/core/theme/theme_controller.dart';
 import 'package:tasky/core/widgets/custom_checkbox.dart';
 import 'package:tasky/core/widgets/custom_text_form_field.dart';
@@ -207,16 +203,9 @@ class TaskItemWidget extends StatelessWidget {
                     child: ElevatedButton.icon(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          List taskList = [];
-                          final tasks = PreferencesManager().getString(
-                            StorageKey.tasks,
-                          );
+                          List<TaskModel> taskList = [];
 
-                          if (tasks != null) {
-                            taskList = jsonDecode(tasks);
-                          }
-
-                          // taskList = await FileStorageManager().loadTasks();
+                          taskList = HiveStorageManager().loadTasks();
                           TaskModel newModel = TaskModel(
                             id: model.id,
                             taskName: taskNameController.text.trim(),
@@ -226,19 +215,13 @@ class TaskItemWidget extends StatelessWidget {
                           );
 
                           final item = taskList.firstWhere(
-                            (element) => element['id'] == model.id,
+                            (element) => element.id == model.id,
                           );
 
                           final int index = taskList.indexOf(item);
+                          taskList[index] = newModel;
 
-                          taskList[index] = newModel.toMap();
-
-                          final updatedTasks = jsonEncode(taskList);
-
-                          await PreferencesManager().setString(
-                            StorageKey.tasks,
-                            updatedTasks,
-                          );
+                          await HiveStorageManager().saveTasks(taskList);
 
                           Navigator.of(context).pop(true);
                         }

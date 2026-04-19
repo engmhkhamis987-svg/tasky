@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:tasky/core/constants/storage_key.dart';
-import 'package:tasky/core/services/file_storage_manager.dart';
-import 'package:tasky/core/services/preferences_manager.dart';
+import 'package:tasky/core/services/hive_storage_manager.dart';
 import 'package:tasky/models/task_model.dart';
 
 class AddTaskController with ChangeNotifier {
@@ -15,15 +10,7 @@ class AddTaskController with ChangeNotifier {
 
   void addTask(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      List taskList = [];
-
-      final tasks = PreferencesManager().getString(StorageKey.tasks);
-
-      if (tasks != null) {
-        taskList = jsonDecode(tasks);
-      }
-      // taskList = await FileStorageManager().loadTasks();
-
+      List<TaskModel> taskList = HiveStorageManager().loadTasks();
       TaskModel model = TaskModel(
         id: taskList.length + 1,
         taskName: taskNameController.text.trim(),
@@ -31,13 +18,8 @@ class AddTaskController with ChangeNotifier {
         isHighPriority: isHighPriority,
       );
 
-      taskList.add(model.toMap());
-
-      // await FileStorageManager().saveTasks(taskList);
-
-      final updatedTasks = jsonEncode(taskList);
-      await PreferencesManager().setString(StorageKey.tasks, updatedTasks);
-
+      taskList.add(model);
+      await HiveStorageManager().saveTasks(taskList);
       Navigator.of(context).pop(true);
     }
   }
